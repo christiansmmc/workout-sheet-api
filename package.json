@@ -1,0 +1,19 @@
+{
+    "type": "module",
+    "dependencies": {
+        "@fastify/mysql": "^4.1.0",
+        "@fastify/postgres": "^5.2.2",
+        "@prisma/client": "^5.4.2",
+        "fastify": "^4.24.3",
+        "pg": "^8.11.3",
+        "postgrator": "^7.2.0"
+    },
+    "name": "workout_sheet",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "devDependencies": {
+        "nodemon": "^3.0.1",
+        "prisma": "^5.4.2"
+    }
+}

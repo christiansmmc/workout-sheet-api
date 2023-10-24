@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+    postgres:
+        image: postgres:latest
+        container_name: workout-sheet-db
+        environment:
+            POSTGRES_DB: workout_sheet
+            POSTGRES_USER: workout_sheet
+            POSTGRES_PASSWORD: workout_sheet
+        ports:
+            - "5432:5432"
