@@ -17,13 +17,81 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   client    Client?
+
+  @@map("users")
 }
 
 model Client {
-  id      String   @id @default(uuid())
-  name    String   @db.VarChar(255)
-  weight  Decimal? @db.Decimal()
-  height  Decimal? @db.Decimal()
-  user_id String   @unique
-  user    User     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                    String                  @id @default(uuid())
+  name                  String                  @db.VarChar(255)
+  weight                Decimal?                @db.Decimal()
+  height                Decimal?                @db.Decimal()
+  user_id               String                  @unique
+  user                  User                    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ClientHistory         ClientHistory[]
+  Workout               Workout[]
+  ClientExerciseHistory ClientExerciseHistory[]
+
+  @@map("client")
+}
+
+model ClientHistory {
+  id        String   @id @default(uuid())
+  weight    Decimal? @db.Decimal()
+  height    Decimal? @db.Decimal()
+  date      DateTime @default(now())
+  client_id String   @unique
+  client    Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("client_history")
+}
+
+model Workout {
+  id              String            @id @default(uuid())
+  name            String            @db.VarChar(255)
+  client_id       String            @unique
+  client          Client            @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  WorkoutExercise WorkoutExercise[]
+
+  @@map("workout")
+}
+
+model Exercise {
+  id                    String                  @id @default(uuid())
+  name                  String                  @db.VarChar(255)
+  body_part             BodyPart
+  WorkoutExercise       WorkoutExercise[]
+  ClientExerciseHistory ClientExerciseHistory[]
+}
+
+model WorkoutExercise {
+  workout_id  String   @unique
+  exercise_id String   @unique
+  workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([workout_id, exercise_id])
+  @@map("workout_exercise")
+}
+
+model ClientExerciseHistory {
+  date        DateTime @default(now())
+  client_id   String   @unique
+  exercise_id String   @unique
+  client      Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([client_id, exercise_id])
+  @@map("client_exercise_history")
+}
+
+enum BodyPart {
+  SHOULDERS
+  CHEST
+  BICEPS
+  TRICEPS
+  FOREARMS
+  ABS
+  LEGS
+  BACK
 }
