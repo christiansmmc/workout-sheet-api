@@ -16,7 +16,7 @@ model User {
   password  String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  client    Client?
+  Client    Client?
 
   @@map("users")
 }
@@ -27,7 +27,7 @@ model Client {
   weight                Decimal?                @db.Decimal()
   height                Decimal?                @db.Decimal()
   user_id               String                  @unique
-  user                  User                    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User                  User                    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ClientHistory         ClientHistory[]
   Workout               Workout[]
   ClientExerciseHistory ClientExerciseHistory[]
@@ -41,7 +41,7 @@ model ClientHistory {
   height    Decimal? @db.Decimal()
   date      DateTime @default(now())
   client_id String   @unique
-  client    Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Client    Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("client_history")
 }
@@ -50,7 +50,7 @@ model Workout {
   id              String            @id @default(uuid())
   name            String            @db.VarChar(255)
   client_id       String            @unique
-  client          Client            @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Client          Client            @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   WorkoutExercise WorkoutExercise[]
 
   @@map("workout")
@@ -62,13 +62,15 @@ model Exercise {
   body_part             BodyPart
   WorkoutExercise       WorkoutExercise[]
   ClientExerciseHistory ClientExerciseHistory[]
+
+  @@map("exercise")
 }
 
 model WorkoutExercise {
   workout_id  String   @unique
   exercise_id String   @unique
-  workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([workout_id, exercise_id])
   @@map("workout_exercise")
@@ -78,8 +80,8 @@ model ClientExerciseHistory {
   date        DateTime @default(now())
   client_id   String   @unique
   exercise_id String   @unique
-  client      Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Client      Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([client_id, exercise_id])
   @@map("client_exercise_history")

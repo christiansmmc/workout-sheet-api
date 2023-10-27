@@ -48,3 +48,20 @@ export const loginResponseSchema = {
         access_token: { type: "string" },
     },
 };
+
+export const getUserResponseSchema = {
+    type: "object",
+    properties: {
+        id: { type: "string" },
+        email: { type: "string" },
+        client: {
+            type: "object",
+            properties: {
+                id: { type: "string" },
+                name: { type: "string" },
+                weight: { type: "number" },
+                height: { type: "number" },
+            },
+        },
+    },
+};
