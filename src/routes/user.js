@@ -1,37 +1,39 @@
-import bcrypt from "bcrypt";
+import { createUser, findUserById } from "../services/user.js";
 import {
     createAccountBodySchema,
     createAccountResponseSchema,
+    getUserResponseSchema,
 } from "../utils/schemas.js";
-import { createUser, findUserByEmail } from "../services/userService.js";
 
 export default async function (fastify) {
     fastify.post(
-        "/register",
+        "/api/user",
         {
             schema: {
                 body: createAccountBodySchema,
                 response: { 201: createAccountResponseSchema },
             },
         },
-        async (request, reply) => {
-            const emailExists = await findUserByEmail(request.body.email);
+        async (req, rep) => {
+            const user = await createUser(req.body);
 
-            if (emailExists) throw new Error("Email already registered");
+            const responseSerialization = rep.getSerializationFunction(201);
+            return responseSerialization(user);
+        }
+    );
 
-            const user = await createUser({
-                email: request.body.email,
-                password: bcrypt.hashSync(request.body.password, 10),
-                client: {
-                    create: {
-                        name: request.body.client.name,
-                        weight: request.body.client.weight,
-                        height: request.body.client.height,
-                    },
-                },
-            });
+    fastify.get(
+        "/api/user",
+        {
+            onRequest: [fastify.authenticate],
+            schema: {
+                response: { 200: getUserResponseSchema },
+            },
+        },
+        async (req, rep) => {
+            const user = await findUserById(req.user.id);
 
-            const responseSerialization = reply.getSerializationFunction(201);
+            const responseSerialization = rep.getSerializationFunction(200);
             return responseSerialization(user);
         }
     );
