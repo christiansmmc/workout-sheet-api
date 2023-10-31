@@ -18,7 +18,6 @@ export default async function (fastify: FastifyInstance) {
         },
         async (req, rep) => {
             const user = await createUser(req.body);
-            console.log(user);
             rep.status(201).send(user);
         }
     );
