@@ -14,8 +14,7 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique @db.VarChar(255)
   password  String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
   client    Client?
 
   @@map("users")
@@ -59,7 +58,7 @@ model Workout {
 model Exercise {
   id                    String                  @id @default(uuid())
   name                  String                  @db.VarChar(255)
-  body_part             BodyPart
+  bodyPart              BodyPart                @map("body_part")
   workoutExercise       WorkoutExercise[]
   clientExerciseHistory ClientExerciseHistory[]
 
@@ -67,6 +66,7 @@ model Exercise {
 }
 
 model WorkoutExercise {
+  load        Float
   workout_id  String   @unique
   exercise_id String   @unique
   workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -77,6 +77,7 @@ model WorkoutExercise {
 }
 
 model ClientExerciseHistory {
+  load        Float
   date        DateTime @default(now())
   client_id   String   @unique
   exercise_id String   @unique
@@ -88,12 +89,11 @@ model ClientExerciseHistory {
 }
 
 enum BodyPart {
-  SHOULDERS
-  CHEST
+  OMBRO
+  PEITO
   BICEPS
   TRICEPS
-  FOREARMS
-  ABS
-  LEGS
-  BACK
+  ANTEBRACO
+  PERNA
+  COSTAS
 }
