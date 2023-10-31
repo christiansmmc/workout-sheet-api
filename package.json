@@ -1,21 +1,29 @@
 {
     "scripts": {
-        "start": "yarn nodemon src/index.js"
+        "build": "tsc -p tsconfig.json",
+        "start": "tsnd --respawn --transpile-only --exit-child src/index.ts"
     },
-    "type": "module",
     "dependencies": {
         "@fastify/jwt": "^7.2.2",
+        "@fastify/type-provider-typebox": "^3.5.0",
         "@prisma/client": "^5.4.2",
+        "@sinclair/typebox": "^0.31.21",
+        "@types/dotenv": "^8.2.0",
         "bcrypt": "^5.1.1",
         "dotenv": "^16.3.1",
-        "fastify": "^4.24.3"
+        "fastify": "^4.24.3",
+        "ts-node": "^10.9.1",
+        "ts-node-dev": "^2.0.0"
     },
     "name": "workout_sheet",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
     "devDependencies": {
+        "@types/bcrypt": "^5.0.1",
+        "json-schema-to-typescript": "^13.1.1",
         "nodemon": "^3.0.1",
-        "prisma": "^5.4.2"
+        "prisma": "^5.4.2",
+        "typescript": "^5.2.2"
     }
 }
