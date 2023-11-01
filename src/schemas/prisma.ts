@@ -18,4 +18,11 @@ export const CreateUserSchema = Type.Object({
     }),
 });
 
+export const CreateClientHistorySchema = Type.Object({
+    weight: Type.Any(),
+    height: Type.Any(),
+    client_id: Type.String(),
+});
+
 export type CreateUserType = Static<typeof CreateUserSchema>;
+export type CreateClientHistoryType = Static<typeof CreateClientHistorySchema>;
