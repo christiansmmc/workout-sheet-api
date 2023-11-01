@@ -10,6 +10,7 @@ import authRoutes from "./routes/auth";
 import clientRoutes from "./routes/client";
 import exerciseRoutes from "./routes/exercise";
 import userRoutes from "./routes/user";
+import workoutRoutes from "./routes/workout";
 
 const fastify: FastifyInstance = Fastify({
     logger: true,
@@ -38,6 +39,7 @@ fastify.register(authRoutes, { prefix: "api/authenticate" });
 fastify.register(userRoutes, { prefix: "api/users" });
 fastify.register(clientRoutes, { prefix: "api/clients" });
 fastify.register(exerciseRoutes, { prefix: "api/exercises" });
+fastify.register(workoutRoutes, { prefix: "api/workouts" });
 
 fastify.decorate(
     "authenticate",
