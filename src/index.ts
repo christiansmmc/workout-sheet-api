@@ -8,6 +8,7 @@ import Fastify, {
 } from "fastify";
 import authRoutes from "./routes/auth";
 import clientRoutes from "./routes/client";
+import exerciseRoutes from "./routes/exercise";
 import userRoutes from "./routes/user";
 
 const fastify: FastifyInstance = Fastify({
@@ -36,6 +37,7 @@ fastify.register(fastifyJwt, { secret: process.env.JWT_SECRET as string });
 fastify.register(authRoutes, { prefix: "api/authenticate" });
 fastify.register(userRoutes, { prefix: "api/users" });
 fastify.register(clientRoutes, { prefix: "api/clients" });
+fastify.register(exerciseRoutes, { prefix: "api/exercises" });
 
 fastify.decorate(
     "authenticate",
