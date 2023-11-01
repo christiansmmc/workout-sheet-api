@@ -39,7 +39,7 @@ model ClientHistory {
   weight    Decimal? @db.Decimal()
   height    Decimal? @db.Decimal()
   date      DateTime @default(now())
-  client_id String   @unique
+  client_id String
   client    Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("client_history")
@@ -48,7 +48,7 @@ model ClientHistory {
 model Workout {
   id              String            @id @default(uuid())
   name            String            @db.VarChar(255)
-  client_id       String            @unique
+  client_id       String
   client          Client            @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   workoutExercise WorkoutExercise[]
 
@@ -67,8 +67,8 @@ model Exercise {
 
 model WorkoutExercise {
   load        Float
-  workout_id  String   @unique
-  exercise_id String   @unique
+  workout_id  String
+  exercise_id String
   workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -79,8 +79,8 @@ model WorkoutExercise {
 model ClientExerciseHistory {
   load        Float
   date        DateTime @default(now())
-  client_id   String   @unique
-  exercise_id String   @unique
+  client_id   String
+  exercise_id String
   client      Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
