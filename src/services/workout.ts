@@ -9,6 +9,9 @@ import {
 import {
     create as createWorkoutExercise,
     deleteAllByWorkoutId,
+    deleteByWorkoutAndExercise,
+    findByWorkoutAndExercise,
+    updateLoad,
 } from "../repository/workoutExercise";
 import { CreateCompleteWorkoutType } from "../schemas/workout";
 
@@ -61,4 +64,61 @@ export const deleteWorkoutById = async (loggedUserId: string, id: string) => {
 
     await deleteAllByWorkoutId(workout.id);
     await deleteById(workout.id);
+};
+
+export const removeExerciseFromWorkout = async (
+    loggedUserId: string,
+    workoutId: string,
+    exerciseId: string
+) => {
+    const client = await findByUserId(loggedUserId);
+    await deleteByWorkoutAndExercise(workoutId, exerciseId, client.id);
+};
+
+export const updateLoadFromExercise = async (
+    loggedUserId: string,
+    workoutId: string,
+    exerciseId: string,
+    load: any
+) => {
+    const client = await findByUserId(loggedUserId);
+    const workoutExercise = await findByWorkoutAndExercise(
+        workoutId,
+        exerciseId,
+        client.id
+    );
+
+    if (workoutExercise.load != load) {
+        await createClientExerciseHistory({
+            load: load,
+            exercise_id: exerciseId,
+            client_id: client.id,
+        });
+
+        await updateLoad(workoutId, exerciseId, client.id, load);
+    }
+
+    return { id: workoutId };
+};
+
+export const addExerciseInWorkout = async (
+    loggedUserId: string,
+    workoutId: string,
+    exerciseId: string,
+    load: any
+) => {
+    const client = await findByUserId(loggedUserId);
+    const workout = await findById(workoutId);
+
+    if (workout.client_id != client.id) {
+        throw new Error("Workout not from logged user");
+    }
+
+    return await createWorkoutExercise({
+        load: load,
+        exercise_id: exerciseId,
+        workout_id: workoutId,
+    });
+
+    return workout;
 };
