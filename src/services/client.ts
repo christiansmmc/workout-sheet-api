@@ -8,10 +8,6 @@ export const updateClient = async (
 ) => {
     const client = await findByUserId(loggedUserId);
 
-    if (!client) {
-        throw new Error("User not found");
-    }
-
     const lastClientHistory = client?.clientHistory.reduce(
         (maxObject, currentObject) => {
             return currentObject.date > maxObject.date
