@@ -66,17 +66,19 @@ model Exercise {
 }
 
 model WorkoutExercise {
+  id          String   @id @default(uuid())
   load        Float
   workout_id  String
   exercise_id String
   workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([workout_id, exercise_id])
+  @@unique([workout_id, exercise_id])
   @@map("workout_exercise")
 }
 
 model ClientExerciseHistory {
+  id          String   @id @default(uuid())
   load        Float
   date        DateTime @default(now())
   client_id   String
@@ -84,7 +86,6 @@ model ClientExerciseHistory {
   client      Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([client_id, exercise_id])
   @@map("client_exercise_history")
 }
 
