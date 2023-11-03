@@ -1,6 +1,6 @@
-import { findByUserId, update } from "../repository/client";
-import { createClientHistory } from "../repository/clientHistory";
-import { UpdateClientType } from "../schemas/client";
+import { createClientHistory } from "../repository/clientRecordRepository";
+import { findByUserId, update } from "../repository/clientRepository";
+import { UpdateClientType } from "../schemas/clientSchema";
 
 export const updateClient = async (
     loggedUserId: string,
@@ -8,23 +8,23 @@ export const updateClient = async (
 ) => {
     const client = await findByUserId(loggedUserId);
 
-    const lastClientHistory = client?.clientHistory.reduce(
+    const lastClientRecord = client.clientRecords.reduce(
         (maxObject, currentObject) => {
             return currentObject.date > maxObject.date
                 ? currentObject
                 : maxObject;
         },
-        client?.clientHistory[0]
+        client.clientRecords[0]
     );
 
     if (
-        lastClientHistory.weight != data.weight ||
-        lastClientHistory.height != data.height
+        lastClientRecord.weight != data.weight ||
+        lastClientRecord.height != data.height
     ) {
         createClientHistory({
             weight: data.weight,
             height: data.height,
-            client_id: client.id,
+            clientId: client.id,
         });
     }
 

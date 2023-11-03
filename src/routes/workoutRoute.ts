@@ -7,7 +7,7 @@ import {
     FindAllWorkoutSchema,
     FindWorkoutByIdSchema,
     WorkoutIdSchema,
-} from "../schemas/workout";
+} from "../schemas/workoutSchema";
 import {
     addExerciseInWorkout,
     createWorkout,
@@ -16,7 +16,7 @@ import {
     findWorkoutById,
     removeExerciseFromWorkout,
     updateLoadFromExercise,
-} from "../services/workout";
+} from "../services/workoutService";
 
 export default async function (fastify: FastifyInstance) {
     fastify.post<{ Body: CreateCompleteWorkoutType }>(

@@ -3,8 +3,8 @@ import {
     UpdateClientResponseSchema,
     UpdateClientSchema,
     UpdateClientType,
-} from "../schemas/client";
-import { updateClient } from "../services/client";
+} from "../schemas/clientSchema";
+import { updateClient } from "../services/clientService";
 
 export default async function (fastify: FastifyInstance) {
     fastify.patch<{ Body: UpdateClientType }>(

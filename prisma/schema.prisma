@@ -12,8 +12,8 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(255)
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now()) @map("created_at")
   client    Client?
 
@@ -21,72 +21,72 @@ model User {
 }
 
 model Client {
-  id                    String                  @id @default(uuid())
-  name                  String                  @db.VarChar(255)
-  weight                Decimal?                @db.Decimal()
-  height                Decimal?                @db.Decimal()
-  user_id               String                  @unique
-  user                  User                    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  clientHistory         ClientHistory[]
-  workout               Workout[]
-  clientExerciseHistory ClientExerciseHistory[]
+  id                    String                 @id @default(uuid())
+  name                  String
+  weight                Float?
+  height                Float?
+  userId                String                 @unique @map("user_id")
+  user                  User                   @relation(fields: [userId], references: [id])
+  clientRecords         ClientRecord[]
+  workouts              Workout[]
+  clientExerciseRecords ClientExerciseRecord[]
 
   @@map("client")
 }
 
-model ClientHistory {
-  id        String   @id @default(uuid())
-  weight    Decimal? @db.Decimal()
-  height    Decimal? @db.Decimal()
-  date      DateTime @default(now())
-  client_id String
-  client    Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model ClientRecord {
+  id       String   @id @default(uuid())
+  weight   Float?
+  height   Float?
+  date     DateTime @default(now())
+  clientId String   @map("client_id")
+  client   Client   @relation(fields: [clientId], references: [id])
 
-  @@map("client_history")
+  @@map("client_record")
 }
 
 model Workout {
-  id              String            @id @default(uuid())
-  name            String            @db.VarChar(255)
-  client_id       String
-  client          Client            @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  workoutExercise WorkoutExercise[]
+  id               String            @id @default(uuid())
+  name             String
+  clientId         String            @map("client_id")
+  client           Client            @relation(fields: [clientId], references: [id])
+  workoutExercises WorkoutExercise[]
 
   @@map("workout")
 }
 
 model Exercise {
-  id                    String                  @id @default(uuid())
-  name                  String                  @db.VarChar(255)
-  bodyPart              BodyPart                @map("body_part")
-  workoutExercise       WorkoutExercise[]
-  clientExerciseHistory ClientExerciseHistory[]
+  id                    String                 @id @default(uuid())
+  name                  String
+  bodyPart              BodyPart               @map("body_part")
+  workoutExercises      WorkoutExercise[]
+  clientExerciseRecords ClientExerciseRecord[]
 
   @@map("exercise")
 }
 
 model WorkoutExercise {
-  id          String   @id @default(uuid())
-  load        Float
-  workout_id  String
-  exercise_id String
-  workout     Workout  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id         String   @id @default(uuid())
+  load       Float
+  workoutId  String   @map("workout_id")
+  exerciseId String   @map("exercise_id")
+  workout    Workout  @relation(fields: [workoutId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
 
-  @@unique([workout_id, exercise_id])
+  @@unique([workoutId, exerciseId])
   @@map("workout_exercise")
 }
 
-model ClientExerciseHistory {
-  id          String   @id @default(uuid())
-  load        Float
-  date        DateTime @default(now())
-  client_id   String
-  exercise_id String
-  client      Client   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model ClientExerciseRecord {
+  id         String   @id @default(uuid())
+  load       Float
+  date       DateTime @default(now())
+  clientId   String   @map("client_id")
+  exerciseId String   @map("exercise_id")
+  client     Client   @relation(fields: [clientId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
 
-  @@map("client_exercise_history")
+  @@map("client_exercise_record")
 }
 
 enum BodyPart {

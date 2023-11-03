@@ -1,14 +1,12 @@
 import prisma from "../config/prisma";
-import { CreateWorkoutType } from "../schemas/workout";
+import { CreateWorkoutType } from "../schemas/workoutSchema";
 
 export const create = async (data: CreateWorkoutType) =>
     await prisma.workout.create({ data });
 
-export const findAllByClientId = async (client_id: string) =>
+export const findAllByClientId = async (clientId: string) =>
     await prisma.workout.findMany({
-        where: {
-            client_id,
-        },
+        where: { clientId },
     });
 
 export const findById = async (id: string) => {
@@ -17,7 +15,7 @@ export const findById = async (id: string) => {
             id,
         },
         include: {
-            workoutExercise: {
+            workoutExercises: {
                 include: { exercise: true },
             },
         },

@@ -7,7 +7,7 @@ export const WorkoutIdSchema = Type.Object({
 
 export const CreateWorkoutSchema = Type.Object({
     name: Type.String(),
-    client_id: Type.String(),
+    clientId: Type.String(),
 });
 
 export const CreateCompleteWorkoutSchema = Type.Object({
@@ -15,7 +15,7 @@ export const CreateCompleteWorkoutSchema = Type.Object({
     workoutExercises: Type.Array(
         Type.Object({
             load: Type.Any(),
-            exercise_id: Type.String(),
+            exerciseId: Type.String(),
         })
     ),
 });
@@ -30,7 +30,7 @@ export const FindAllWorkoutSchema = Type.Array(
 export const FindWorkoutByIdSchema = Type.Object({
     id: Type.String(),
     name: Type.String(),
-    workoutExercise: Type.Array(
+    workoutExercises: Type.Array(
         Type.Object({
             id: Type.String(),
             load: Type.Any(),

@@ -1,10 +1,10 @@
 import prisma from "../config/prisma";
-import { UpdateClientType } from "../schemas/client";
+import { UpdateClientType } from "../schemas/clientSchema";
 
 export const findByUserId = async (userId: string) => {
     const client = await prisma.client.findUnique({
-        where: { user_id: userId },
-        include: { clientHistory: true },
+        where: { userId },
+        include: { clientRecords: true },
     });
 
     if (!client) {
