@@ -1,37 +1,37 @@
-import { findByUserId } from "../repository/client";
-import { create as createClientExerciseHistory } from "../repository/clientExerciseHistory";
-import {
-    create,
-    deleteById,
-    findAllByClientId,
-    findById,
-} from "../repository/workout";
+import { create as createClientExerciseHistory } from "../repository/clientExerciseRecordRepository";
+import { findByUserId } from "../repository/clientRepository";
 import {
     create as createWorkoutExercise,
     deleteAllByWorkoutId,
     deleteByWorkoutAndExercise,
     findByWorkoutAndExercise,
     updateLoad,
-} from "../repository/workoutExercise";
-import { CreateCompleteWorkoutType } from "../schemas/workout";
+} from "../repository/workoutExerciseRepository";
+import {
+    create,
+    deleteById,
+    findAllByClientId,
+    findById,
+} from "../repository/workoutRepository";
+import { CreateCompleteWorkoutType } from "../schemas/workoutSchema";
 
 export const createWorkout = async (
     loggedUserId: string,
     data: CreateCompleteWorkoutType
 ) => {
     const client = await findByUserId(loggedUserId);
-    const workout = await create({ name: data.name, client_id: client.id });
+    const workout = await create({ name: data.name, clientId: client.id });
     data.workoutExercises.forEach((workoutExercise) => {
         createWorkoutExercise({
             load: workoutExercise.load,
-            exercise_id: workoutExercise.exercise_id,
-            workout_id: workout.id,
+            exerciseId: workoutExercise.exerciseId,
+            workoutId: workout.id,
         });
 
         createClientExerciseHistory({
             load: workoutExercise.load,
-            exercise_id: workoutExercise.exercise_id,
-            client_id: client.id,
+            exerciseId: workoutExercise.exerciseId,
+            clientId: client.id,
         });
     });
 
@@ -47,7 +47,7 @@ export const findWorkoutById = async (loggedUserId: string, id: string) => {
     const client = await findByUserId(loggedUserId);
     const workout = await findById(id);
 
-    if (workout.client_id != client.id) {
+    if (workout.clientId != client.id) {
         throw new Error("Workout not from logged user");
     }
 
@@ -58,7 +58,7 @@ export const deleteWorkoutById = async (loggedUserId: string, id: string) => {
     const client = await findByUserId(loggedUserId);
     const workout = await findById(id);
 
-    if (workout.client_id != client.id) {
+    if (workout.clientId != client.id) {
         throw new Error("Workout not from logged user");
     }
 
@@ -91,8 +91,8 @@ export const updateLoadFromExercise = async (
     if (workoutExercise.load != load) {
         await createClientExerciseHistory({
             load: load,
-            exercise_id: exerciseId,
-            client_id: client.id,
+            exerciseId: exerciseId,
+            clientId: client.id,
         });
 
         await updateLoad(workoutId, exerciseId, client.id, load);
@@ -110,14 +110,14 @@ export const addExerciseInWorkout = async (
     const client = await findByUserId(loggedUserId);
     const workout = await findById(workoutId);
 
-    if (workout.client_id != client.id) {
+    if (workout.clientId != client.id) {
         throw new Error("Workout not from logged user");
     }
 
-    return await createWorkoutExercise({
+    await createWorkoutExercise({
         load: load,
-        exercise_id: exerciseId,
-        workout_id: workoutId,
+        exerciseId: exerciseId,
+        workoutId: workoutId,
     });
 
     return workout;

@@ -4,8 +4,8 @@ import {
     CreateAccountSchema,
     CreateAccountType,
     GetUserResponseSchema,
-} from "../schemas/user";
-import { createUser, findUserById } from "../services/user";
+} from "../schemas/userSchema";
+import { createUser, findUserById } from "../services/userService";
 
 export default async function (fastify: FastifyInstance) {
     fastify.post<{ Body: CreateAccountType }>(

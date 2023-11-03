@@ -1,5 +1,5 @@
 import prisma from "../config/prisma";
-import { CreateUserType } from "../schemas/prisma";
+import { CreateUserType } from "../schemas/userSchema";
 
 export const create = async (data: CreateUserType) =>
     await prisma.user.create({ data, include: { client: true } });

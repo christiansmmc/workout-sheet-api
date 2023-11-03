@@ -6,11 +6,11 @@ import Fastify, {
     FastifyReply,
     FastifyRequest,
 } from "fastify";
-import authRoutes from "./routes/auth";
-import clientRoutes from "./routes/client";
-import exerciseRoutes from "./routes/exercise";
-import userRoutes from "./routes/user";
-import workoutRoutes from "./routes/workout";
+import authRoutes from "./routes/authRoute";
+import clientRoutes from "./routes/clientRoute";
+import exerciseRoutes from "./routes/exerciseRoute";
+import userRoutes from "./routes/userRoute";
+import workoutRoutes from "./routes/workoutRoute";
 
 const fastify: FastifyInstance = Fastify({
     logger: true,

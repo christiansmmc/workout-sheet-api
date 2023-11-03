@@ -1,6 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { LoginResponseSchema, LoginSchema, LoginType } from "../schemas/user";
-import { authenticate } from "../services/auth";
+import {
+    LoginResponseSchema,
+    LoginSchema,
+    LoginType,
+} from "../schemas/userSchema";
+import { authenticate } from "../services/authService";
 
 export default async function (fastify: FastifyInstance) {
     fastify.post<{ Body: LoginType }>(

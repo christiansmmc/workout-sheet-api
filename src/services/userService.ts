@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { create, findByEmail, findById } from "../repository/user";
-import { CreateAccountType } from "../schemas/user";
+import { create, findByEmail, findById } from "../repository/userRepository";
+import { CreateAccountType } from "../schemas/userSchema";
 
 export const createUser = async (data: CreateAccountType) => {
     const emailExists = await findByEmail(data.email);
@@ -15,7 +15,7 @@ export const createUser = async (data: CreateAccountType) => {
                 name: data.client.name,
                 weight: data.client.weight,
                 height: data.client.height,
-                clientHistory: {
+                clientRecords: {
                     create: {
                         weight: data.client.weight,
                         height: data.client.height,

@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { FastifyInstance } from "fastify";
-import { findByEmail } from "../repository/user";
-import { LoginType } from "../schemas/user";
+import { findByEmail } from "../repository/userRepository";
+import { LoginType } from "../schemas/userSchema";
 
 export const authenticate = async (
     fastify: FastifyInstance,

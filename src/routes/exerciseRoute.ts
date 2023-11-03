@@ -1,7 +1,7 @@
 import { BodyPart } from "@prisma/client";
 import { FastifyInstance } from "fastify";
-import { ExerciseSchema } from "../schemas/exercise";
-import { findAllExercises } from "../services/exercise";
+import { ExerciseSchema } from "../schemas/exerciseSchema";
+import { findAllExercises } from "../services/exerciseService";
 
 export default async function (fastify: FastifyInstance) {
     fastify.get<{ Querystring: { bodyPart: BodyPart } }>(
