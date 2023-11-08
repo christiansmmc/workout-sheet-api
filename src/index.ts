@@ -16,6 +16,11 @@ const fastify: FastifyInstance = Fastify({
     logger: true,
 }).withTypeProvider<TypeBoxTypeProvider>();
 
+const corsOptions = {
+    credentials: true,
+    origin: /localhost\:5173/,
+};
+
 declare module "@fastify/jwt" {
     interface FastifyJWT {
         user: {
