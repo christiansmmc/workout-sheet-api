@@ -4,6 +4,8 @@
     "main": "index.js",
     "license": "MIT",
     "dependencies": {
+        "@fastify/cors": "^8.4.1",
+        "@fastify/formbody": "^7.4.0",
         "@fastify/jwt": "^7.2.2",
         "@fastify/type-provider-typebox": "^3.5.0",
         "@prisma/client": "^5.4.2",
