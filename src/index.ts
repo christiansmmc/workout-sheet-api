@@ -1,3 +1,5 @@
+import cors from "@fastify/cors";
+import formBody from "@fastify/formbody";
 import fastifyJwt, { JWT } from "@fastify/jwt";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import "dotenv/config";
@@ -16,6 +18,11 @@ const fastify: FastifyInstance = Fastify({
     logger: true,
 }).withTypeProvider<TypeBoxTypeProvider>();
 
+const corsOptions = {
+    credentials: true,
+    origin: /localhost\:5173/,
+};
+
 declare module "@fastify/jwt" {
     interface FastifyJWT {
         user: {
@@ -23,7 +30,6 @@ declare module "@fastify/jwt" {
         };
     }
 }
-
 declare module "fastify" {
     interface FastifyRequest {
         jwt: JWT;
@@ -33,6 +39,8 @@ declare module "fastify" {
     }
 }
 
+fastify.register(cors, corsOptions);
+fastify.register(formBody);
 fastify.register(fastifyJwt, { secret: process.env.JWT_SECRET as string });
 
 fastify.register(authRoutes, { prefix: "api/authenticate" });
