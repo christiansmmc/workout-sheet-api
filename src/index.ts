@@ -53,7 +53,7 @@ fastify.decorate(
     "authenticate",
     async (req: FastifyRequest, rep: FastifyReply) => {
         try {
-            req.jwtVerify();
+            await req.jwtVerify();
         } catch (err) {
             rep.send(err);
         }
