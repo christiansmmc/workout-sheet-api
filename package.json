@@ -28,7 +28,7 @@
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "start": "tsnd --respawn --transpile-only --exit-child src/index.ts",
-        "postinstall": "npx prisma generate"
+        "postinstall": "npx prisma generate && npx prisma migrate deploy"
     },
     "prisma": {
         "seed": "ts-node prisma/seed.ts"
