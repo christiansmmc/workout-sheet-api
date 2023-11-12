@@ -1,5 +1,5 @@
-import { create as createClientExerciseHistory } from "../repository/clientExerciseRecordRepository";
-import { findByUserId } from "../repository/clientRepository";
+import {create as createClientExerciseHistory} from "../repository/clientExerciseRecordRepository";
+import {findByUserId} from "../repository/clientRepository";
 import {
     create as createWorkoutExercise,
     deleteAllByWorkoutId,
@@ -7,37 +7,31 @@ import {
     findByWorkoutAndExercise,
     updateLoad,
 } from "../repository/workoutExerciseRepository";
-import {
-    create,
-    deleteById,
-    findAllByClientId,
-    findById,
-    updateName,
-} from "../repository/workoutRepository";
-import {
-    CreateCompleteWorkoutType,
-    UpdateWorkoutNameType,
-} from "../schemas/workoutSchema";
+import {create, deleteById, findAllByClientId, findById, updateName,} from "../repository/workoutRepository";
+import {CreateCompleteWorkoutType, UpdateWorkoutNameType,} from "../schemas/workoutSchema";
+import {findById as findExercisebyId} from "../repository/exerciseRepository"
 
 export const createWorkout = async (
     loggedUserId: string,
     data: CreateCompleteWorkoutType
 ) => {
     const client = await findByUserId(loggedUserId);
-    const workout = await create({ name: data.name, clientId: client.id });
-    data.workoutExercises.forEach((workoutExercise) => {
+    const workout = await create({name: data.name, clientId: client.id});
+    for (const workoutExercise of data.workoutExercises) {
+        const exercise = await findExercisebyId(workoutExercise.exerciseId)
+
         createWorkoutExercise({
             load: workoutExercise.load,
-            exerciseId: workoutExercise.exerciseId,
+            exerciseId: exercise.id,
             workoutId: workout.id,
         });
 
         createClientExerciseHistory({
             load: workoutExercise.load,
-            exerciseId: workoutExercise.exerciseId,
+            exerciseId: exercise.id,
             clientId: client.id,
         });
-    });
+    }
 
     return workout;
 };
@@ -102,7 +96,7 @@ export const updateLoadFromExercise = async (
         await updateLoad(workoutId, exerciseId, client.id, load);
     }
 
-    return { id: workoutId };
+    return {id: workoutId};
 };
 
 export const addExerciseInWorkout = async (

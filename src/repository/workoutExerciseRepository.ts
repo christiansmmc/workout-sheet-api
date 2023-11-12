@@ -1,11 +1,14 @@
 import prisma from "../config/prisma";
-import { CreateWorkoutExerciseType } from "../schemas/workoutExerciseSchema";
+import {CreateWorkoutExerciseType} from "../schemas/workoutExerciseSchema";
 
-export const create = async (data: CreateWorkoutExerciseType) =>
-    await prisma.workoutExercise.create({ data });
+export const create = async (data: CreateWorkoutExerciseType) => {
+    console.log(data)
+    console.log("AQUI EM CIMA")
+    await prisma.workoutExercise.create({data});
+}
 
 export const deleteAllByWorkoutId = async (workoutId: string) =>
-    await prisma.workoutExercise.deleteMany({ where: { workoutId } });
+    await prisma.workoutExercise.deleteMany({where: {workoutId}});
 
 export const findByWorkoutAndExercise = async (
     workoutId: string,
@@ -14,7 +17,7 @@ export const findByWorkoutAndExercise = async (
 ) => {
     const workoutExercise = await prisma.workoutExercise.findUnique({
         where: {
-            workoutId_exerciseId: { workoutId: workoutId, exerciseId },
+            workoutId_exerciseId: {workoutId: workoutId, exerciseId},
             workout: {
                 clientId,
             },
@@ -29,7 +32,7 @@ export const findByWorkoutAndExercise = async (
 };
 
 export const deleteById = async (id: string) =>
-    await prisma.workoutExercise.delete({ where: { id } });
+    await prisma.workoutExercise.delete({where: {id}});
 
 export const deleteByWorkoutAndExercise = async (
     workoutId: string,
@@ -38,7 +41,7 @@ export const deleteByWorkoutAndExercise = async (
 ) =>
     await prisma.workoutExercise.delete({
         where: {
-            workoutId_exerciseId: { workoutId, exerciseId },
+            workoutId_exerciseId: {workoutId, exerciseId},
             workout: {
                 clientId,
             },
@@ -53,10 +56,10 @@ export const updateLoad = async (
 ) =>
     await prisma.workoutExercise.update({
         where: {
-            workoutId_exerciseId: { workoutId, exerciseId },
+            workoutId_exerciseId: {workoutId, exerciseId},
             workout: {
                 clientId,
             },
         },
-        data: { load },
+        data: {load},
     });
