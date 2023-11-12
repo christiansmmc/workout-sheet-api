@@ -1,5 +1,8 @@
 import prisma from "../config/prisma";
-import { CreateWorkoutType } from "../schemas/workoutSchema";
+import {
+    CreateWorkoutType,
+    UpdateWorkoutNameType,
+} from "../schemas/workoutSchema";
 
 export const create = async (data: CreateWorkoutType) =>
     await prisma.workout.create({ data });
@@ -30,3 +33,9 @@ export const findById = async (id: string) => {
 
 export const deleteById = async (id: string) =>
     await prisma.workout.delete({ where: { id } });
+
+export const updateName = async (id: string, data: UpdateWorkoutNameType) =>
+    await prisma.workout.update({
+        where: { id },
+        data,
+    });

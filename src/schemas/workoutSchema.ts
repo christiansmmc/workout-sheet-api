@@ -47,6 +47,10 @@ export const CreateUpdateWorkoutLoadSchema = Type.Object({
     load: Type.Any(),
 });
 
+export const UpdateWorkoutNameSchema = Type.Object({
+    name: Type.String(),
+});
+
 export type CreateWorkoutType = Static<typeof CreateWorkoutSchema>;
 export type CreateCompleteWorkoutType = Static<
     typeof CreateCompleteWorkoutSchema
@@ -56,3 +60,4 @@ export type FindWorkoutByIdType = Static<typeof FindWorkoutByIdSchema>;
 export type CreateUpdateWorkoutLoadType = Static<
     typeof CreateUpdateWorkoutLoadSchema
 >;
+export type UpdateWorkoutNameType = Static<typeof UpdateWorkoutNameSchema>;

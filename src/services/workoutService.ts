@@ -12,8 +12,12 @@ import {
     deleteById,
     findAllByClientId,
     findById,
+    updateName,
 } from "../repository/workoutRepository";
-import { CreateCompleteWorkoutType } from "../schemas/workoutSchema";
+import {
+    CreateCompleteWorkoutType,
+    UpdateWorkoutNameType,
+} from "../schemas/workoutSchema";
 
 export const createWorkout = async (
     loggedUserId: string,
@@ -121,4 +125,19 @@ export const addExerciseInWorkout = async (
     });
 
     return workout;
+};
+
+export const updateWorkoutName = async (
+    loggedUserId: string,
+    id: string,
+    data: UpdateWorkoutNameType
+) => {
+    const client = await findByUserId(loggedUserId);
+    const workout = await findById(id);
+
+    if (workout.clientId != client.id) {
+        throw new Error("Workout not from logged user");
+    }
+
+    await updateName(id, data);
 };
