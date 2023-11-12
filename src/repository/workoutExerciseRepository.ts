@@ -58,5 +58,5 @@ export const updateLoad = async (
                 clientId,
             },
         },
-        data: { load: load },
+        data: { load },
     });
