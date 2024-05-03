@@ -15,5 +15,5 @@ export const authenticate = async (
 
     if (!isValidPassword) throw new Error("Email ou senha invalido");
 
-    return fastify.jwt.sign({ id: user.id }, { expiresIn: "168h" });
+    return fastify.jwt.sign({ id: user.id });
 };
