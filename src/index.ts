@@ -16,7 +16,6 @@ const fastify: FastifyInstance = Fastify({
 
 const corsOptions = {
     credentials: true,
-    // origin: /localhost\:5173/,
     origin: "*",
 };
 
@@ -39,7 +38,12 @@ declare module "fastify" {
 
 fastify.register(cors, corsOptions);
 fastify.register(formBody);
-fastify.register(fastifyJwt, {secret: process.env.JWT_SECRET as string});
+fastify.register(fastifyJwt, {
+    secret: process.env.JWT_SECRET as string,
+    sign: {
+        expiresIn: '1y'
+    }
+});
 
 fastify.register(authRoutes, {prefix: "api/authenticate"});
 fastify.register(userRoutes, {prefix: "api/users"});

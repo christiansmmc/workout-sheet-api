@@ -2,8 +2,6 @@ import prisma from "../config/prisma";
 import {CreateWorkoutExerciseType} from "../schemas/workoutExerciseSchema";
 
 export const create = async (data: CreateWorkoutExerciseType) => {
-    console.log(data)
-    console.log("AQUI EM CIMA")
     await prisma.workoutExercise.create({data});
 }
 
