@@ -14,6 +14,8 @@ export default async function (fastify: FastifyInstance) {
             },
         },
         async (req, rep) => {
+            console.log("DATABASE_URL: ", process.env.DATABASE_URL);
+
             const { bodyPart } = req.query;
 
             const exercises = await findAllExercises(bodyPart);

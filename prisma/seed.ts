@@ -1,5 +1,5 @@
 import prisma from "../src/config/prisma";
-import { exercises } from "../src/data/exercises";
+import {exercises} from "../src/data/exercises";
 
 async function main() {
     await prisma.exercise.createMany({

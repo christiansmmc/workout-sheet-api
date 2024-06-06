@@ -1,8 +1,23 @@
-import { BodyPart } from "@prisma/client";
+enum BodyPart {
+    "OMBRO",
+    "PEITO",
+    "BICEPS",
+    "TRICEPS",
+    "PERNA",
+    "COSTAS",
+}
 
 export const exercises = [
     {
         name: "supino reto (barra)",
+        bodyPart: BodyPart.PEITO,
+    },
+    {
+        name: "supino reto (halteres)",
+        bodyPart: BodyPart.PEITO,
+    },
+    {
+        name: "supino inclinado (barra)",
         bodyPart: BodyPart.PEITO,
     },
     {
@@ -18,7 +33,11 @@ export const exercises = [
         bodyPart: BodyPart.PEITO,
     },
     {
-        name: "rosca direta",
+        name: "rosca direta (barra)",
+        bodyPart: BodyPart.BICEPS,
+    },
+    {
+        name: "rosca direta (halteres)",
         bodyPart: BodyPart.BICEPS,
     },
     {
@@ -30,15 +49,11 @@ export const exercises = [
         bodyPart: BodyPart.BICEPS,
     },
     {
-        name: "rosca direta",
-        bodyPart: BodyPart.BICEPS,
-    },
-    {
         name: "pulldown",
         bodyPart: BodyPart.COSTAS,
     },
     {
-        name: "remada alta (maquina)",
+        name: "remada alta",
         bodyPart: BodyPart.COSTAS,
     },
     {
@@ -62,7 +77,15 @@ export const exercises = [
         bodyPart: BodyPart.TRICEPS,
     },
     {
+        name: "triceps testa (barra)",
+        bodyPart: BodyPart.TRICEPS,
+    },
+    {
         name: "desenvolvimento (halteres)",
+        bodyPart: BodyPart.OMBRO,
+    },
+    {
+        name: "desenvolvimento (maquina)",
         bodyPart: BodyPart.OMBRO,
     },
     {
