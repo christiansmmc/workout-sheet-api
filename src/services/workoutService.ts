@@ -20,17 +20,19 @@ export const createWorkout = async (
     for (const workoutExercise of data.workoutExercises) {
         const exercise = await findExercisebyId(workoutExercise.exerciseId)
 
-        createWorkoutExercise({
+        await createWorkoutExercise({
             load: workoutExercise.load,
             exerciseId: exercise.id,
             workoutId: workout.id,
         });
 
-        createClientExerciseHistory({
-            load: workoutExercise.load,
-            exerciseId: exercise.id,
-            clientId: client.id,
-        });
+        if (workoutExercise.load !== undefined && workoutExercise.load !== null) {
+            await createClientExerciseHistory({
+                load: workoutExercise.load,
+                exerciseId: exercise.id,
+                clientId: client.id,
+            });
+        }
     }
 
     return workout;

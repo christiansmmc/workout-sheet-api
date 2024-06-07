@@ -1,5 +1,5 @@
-import { BodyPart } from "@prisma/client";
-import { Static, Type } from "@sinclair/typebox";
+import {BodyPart} from "@prisma/client";
+import {Static, Type} from "@sinclair/typebox";
 
 export const WorkoutIdSchema = Type.Object({
     id: Type.String(),
@@ -14,7 +14,7 @@ export const CreateCompleteWorkoutSchema = Type.Object({
     name: Type.String(),
     workoutExercises: Type.Array(
         Type.Object({
-            load: Type.Any(),
+            load: Type.Any().Optional(),
             exerciseId: Type.String(),
         })
     ),
