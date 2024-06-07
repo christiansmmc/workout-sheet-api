@@ -14,7 +14,7 @@ export const CreateCompleteWorkoutSchema = Type.Object({
     name: Type.String(),
     workoutExercises: Type.Array(
         Type.Object({
-            load: Type.Any().Optional(),
+            load: Type.Optional(Type.Any()),
             exerciseId: Type.String(),
         })
     ),
