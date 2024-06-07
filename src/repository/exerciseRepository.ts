@@ -1,10 +1,14 @@
-import { BodyPart } from "@prisma/client";
+import {BodyPart} from "@prisma/client";
 import prisma from "../config/prisma";
 
-export const findAll = async (bodyPart: BodyPart) => {
-    if (bodyPart && Object.values(BodyPart).includes(bodyPart as BodyPart)) {
+export const findAll = async (bodyParts?: BodyPart[]) => {
+    if (bodyParts && bodyParts.length > 0) {
         return prisma.exercise.findMany({
-            where: {bodyPart},
+            where: {
+                bodyPart: {
+                    in: bodyParts,
+                },
+            },
         });
     }
     return prisma.exercise.findMany();
@@ -12,7 +16,7 @@ export const findAll = async (bodyPart: BodyPart) => {
 
 export const findById = async (id: string) => {
     const exercise = await prisma.exercise.findUnique({
-        where: { id }
+        where: {id}
     });
 
     if (!exercise) {
