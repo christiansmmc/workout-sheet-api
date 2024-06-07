@@ -21,7 +21,7 @@ export const createWorkout = async (
         const exercise = await findExercisebyId(workoutExercise.exerciseId)
 
         await createWorkoutExercise({
-            load: workoutExercise.load,
+            load: workoutExercise.load !== undefined && workoutExercise.load !== null ? workoutExercise.load : 0,
             exerciseId: exercise.id,
             workoutId: workout.id,
         });
