@@ -1,15 +1,5 @@
-import { FastifyInstance } from "fastify";
-import {
-    CreateCompleteWorkoutSchema,
-    CreateCompleteWorkoutType,
-    CreateUpdateWorkoutLoadSchema,
-    CreateUpdateWorkoutLoadType,
-    FindAllWorkoutSchema,
-    FindWorkoutByIdSchema,
-    UpdateWorkoutNameSchema,
-    UpdateWorkoutNameType,
-    WorkoutIdSchema,
-} from "../schemas/workoutSchema";
+import {FastifyInstance} from "fastify";
+import {CreateCompleteWorkoutType, CreateUpdateWorkoutLoadType, UpdateWorkoutNameType,} from "../schemas/workoutSchema";
 import {
     addExerciseInWorkout,
     createWorkout,
@@ -24,16 +14,9 @@ import {
 export default async function (fastify: FastifyInstance) {
     fastify.get<{ Params: { id: string } }>(
         "/:id",
-        {
-            onRequest: [fastify.authenticate],
-            schema: {
-                response: {
-                    200: FindWorkoutByIdSchema,
-                },
-            },
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
-            const { id } = req.params;
+            const {id} = req.params;
             const workout = await findWorkoutById(req.user.id, id);
             rep.status(200).send(workout);
         }
@@ -41,14 +24,7 @@ export default async function (fastify: FastifyInstance) {
 
     fastify.get(
         "/",
-        {
-            onRequest: [fastify.authenticate],
-            schema: {
-                response: {
-                    200: FindAllWorkoutSchema,
-                },
-            },
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
             const workouts = await findAllWorkoutByLoggedUser(req.user.id);
             rep.status(200).send(workouts);
@@ -57,15 +33,7 @@ export default async function (fastify: FastifyInstance) {
 
     fastify.post<{ Body: CreateCompleteWorkoutType }>(
         "/",
-        {
-            onRequest: [fastify.authenticate],
-            schema: {
-                body: CreateCompleteWorkoutSchema,
-                response: {
-                    201: WorkoutIdSchema,
-                },
-            },
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
             const workout = await createWorkout(req.user.id, req.body);
             rep.status(201).send(workout);
@@ -77,17 +45,9 @@ export default async function (fastify: FastifyInstance) {
         Params: { workoutId: string; exerciseId: string };
     }>(
         "/:workoutId/exercises/:exerciseId",
-        {
-            onRequest: [fastify.authenticate],
-            schema: {
-                body: { CreateUpdateWorkoutLoadSchema },
-                response: {
-                    201: WorkoutIdSchema,
-                },
-            },
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
-            const { workoutId, exerciseId } = req.params;
+            const {workoutId, exerciseId} = req.params;
             const response = await addExerciseInWorkout(
                 req.user.id,
                 workoutId,
@@ -103,17 +63,9 @@ export default async function (fastify: FastifyInstance) {
         Params: { workoutId: string; exerciseId: string };
     }>(
         "/:workoutId/exercises/:exerciseId",
-        {
-            onRequest: [fastify.authenticate],
-            schema: {
-                body: { CreateUpdateWorkoutLoadSchema },
-                response: {
-                    200: WorkoutIdSchema,
-                },
-            },
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
-            const { workoutId, exerciseId } = req.params;
+            const {workoutId, exerciseId} = req.params;
             const response = await updateLoadFromExercise(
                 req.user.id,
                 workoutId,
@@ -129,17 +81,9 @@ export default async function (fastify: FastifyInstance) {
         Params: { id: string };
     }>(
         "/:id",
-        {
-            onRequest: [fastify.authenticate],
-            schema: {
-                body: { UpdateWorkoutNameSchema },
-                response: {
-                    200: WorkoutIdSchema,
-                },
-            },
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
-            const { id } = req.params;
+            const {id} = req.params;
             const response = await updateWorkoutName(req.user.id, id, req.body);
             rep.status(200).send(response);
         }
@@ -147,11 +91,9 @@ export default async function (fastify: FastifyInstance) {
 
     fastify.delete<{ Params: { id: string } }>(
         "/:id",
-        {
-            onRequest: [fastify.authenticate],
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
-            const { id } = req.params;
+            const {id} = req.params;
             await deleteWorkoutById(req.user.id, id);
             rep.status(204).send();
         }
@@ -159,11 +101,9 @@ export default async function (fastify: FastifyInstance) {
 
     fastify.delete<{ Params: { workoutId: string; exerciseId: string } }>(
         "/:workoutId/exercises/:exerciseId",
-        {
-            onRequest: [fastify.authenticate],
-        },
+        {onRequest: [fastify.authenticate]},
         async (req, rep) => {
-            const { workoutId, exerciseId } = req.params;
+            const {workoutId, exerciseId} = req.params;
             await removeExerciseFromWorkout(req.user.id, workoutId, exerciseId);
             rep.status(204).send();
         }
