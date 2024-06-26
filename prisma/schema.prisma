@@ -59,6 +59,7 @@ model Exercise {
   id                    String                 @id @default(uuid())
   name                  String
   bodyPart              BodyPart               @map("body_part")
+  image                 String?
   workoutExercises      WorkoutExercise[]
   clientExerciseRecords ClientExerciseRecord[]
 
