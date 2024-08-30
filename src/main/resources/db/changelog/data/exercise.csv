@@ -1,0 +1,39 @@
+name,body_part
+supino reto barra,PEITO
+supino reto halteres,PEITO
+supino inclinado barra,PEITO
+supino inclinado halteres,PEITO
+crucifixo maquina,PEITO
+crucifixo halteres,PEITO
+cross-over,PEITO
+rosca direta barra,BICEPS
+rosca direta halteres,BICEPS
+rosca martelo,BICEPS
+rosca inclinado,BICEPS
+pulldown,COSTAS
+remada alta,COSTAS
+pulley,COSTAS
+pulley maquina,COSTAS
+remada baixa,COSTAS
+remada baixa maquina,COSTAS
+triceps corda,TRICEPS
+triceps frances halteres,TRICEPS
+triceps testa maquina,TRICEPS
+triceps testa barra,TRICEPS
+desenvolvimento halteres,OMBRO
+desenvolvimento maquina,OMBRO
+elevacao frontal halteres,OMBRO
+elevacao frontal polia,OMBRO
+elevacao lateral polia,OMBRO
+elevacao lateral halteres,OMBRO
+elevacao lateral maquina,OMBRO
+crucifixo inverso maquina,OMBRO
+crucifixo inverso polia,OMBRO
+encolhimento halteres,OMBRO
+agachamento livre barra,PERNA
+leg press 45⁰,PERNA
+cadeira extensora,PERNA
+cadeira flexora,PERNA
+panturrilha leg press,PERNA
+panturrilha gemeos sentado,PERNA
+mesa flexora,PERNA

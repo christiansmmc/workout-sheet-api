@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1725024882643-1" author="csequ">
+        <createTable tableName="exercise">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="body_part" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725024882643-2" author="csequ">
+        <createTable tableName="exercise_history">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_history"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="workout_id" type="BIGINT"/>
+            <column name="exercise_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725024882643-3" author="csequ">
+        <createTable tableName="exercise_load_history">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_load_history"/>
+            </column>
+            <column name="set" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="load" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exercise_history_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725024882643-4" author="csequ">
+        <createTable tableName="workout">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="client_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725024882643-5" author="csequ">
+        <createTable tableName="workout_exercise">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout_exercise"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="workout_id" type="BIGINT"/>
+            <column name="exercise_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725024882643-6" author="csequ">
+        <createTable tableName="workout_exercise_load">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout_exercise_load"/>
+            </column>
+            <column name="set" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="load" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="workout_exercise_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725024882643-7" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="exercise_id" baseTableName="exercise_history"
+                                 constraintName="FK_EXERCISE_HISTORY_ON_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="exercise"/>
+    </changeSet>
+    <changeSet id="1725024882643-8" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="workout_id" baseTableName="exercise_history"
+                                 constraintName="FK_EXERCISE_HISTORY_ON_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="workout"/>
+    </changeSet>
+    <changeSet id="1725024882643-9" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="exercise_history_id" baseTableName="exercise_load_history"
+                                 constraintName="FK_EXERCISE_LOAD_HISTORY_ON_EXERCISEHISTORY" referencedColumnNames="id"
+                                 referencedTableName="exercise_history"/>
+    </changeSet>
+    <changeSet id="1725024882643-10" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="workout_exercise_id" baseTableName="workout_exercise_load"
+                                 constraintName="FK_WORKOUT_EXERCISE_LOAD_ON_WORKOUTEXERCISE" referencedColumnNames="id"
+                                 referencedTableName="workout_exercise"/>
+    </changeSet>
+    <changeSet id="1725024882643-11" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="exercise_id" baseTableName="workout_exercise"
+                                 constraintName="FK_WORKOUT_EXERCISE_ON_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="exercise"/>
+    </changeSet>
+    <changeSet id="1725024882643-12" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="workout_id" baseTableName="workout_exercise"
+                                 constraintName="FK_WORKOUT_EXERCISE_ON_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="workout"/>
+    </changeSet>
+    <changeSet id="1725024882643-13" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="workout"
+                                 constraintName="FK_WORKOUT_ON_CLIENT" referencedColumnNames="id"
+                                 referencedTableName="client"/>
+    </changeSet>
+
+</databaseChangeLog>
