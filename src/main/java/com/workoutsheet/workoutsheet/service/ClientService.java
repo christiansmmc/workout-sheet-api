@@ -3,6 +3,7 @@ package com.workoutsheet.workoutsheet.service;
 import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.User;
 import com.workoutsheet.workoutsheet.repository.ClientRepository;
+import com.workoutsheet.workoutsheet.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,13 @@ public class ClientService {
         clientHistoryService.createClientHistory(client, client.getWeight(), client.getHeight());
 
         return clientCreated;
+    }
+
+    public Client getLoggedUser() {
+        String loggedUserEmail = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow();
+
+        return repository.findByUserEmail(loggedUserEmail)
+                .orElseThrow();
     }
 }

@@ -8,5 +8,10 @@
     <include file="db/changelog/changelogs/202408292200-changelog.xml"/>
     <include file="db/changelog/changelogs/202408301030-changelog.xml"/>
     <include file="db/changelog/changelogs/202408301037-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202408301845-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202408302225-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202409010030-changelog.xml"/>
+    <include file="db/changelog/changelogs/202409022220-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202409022240-changelog.xml"/>
 
 </databaseChangeLog>

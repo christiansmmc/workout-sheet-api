@@ -15,6 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Table(name = "exercise_load_history")
 @Entity
@@ -31,11 +32,16 @@ public class ExerciseLoadHistory {
     private Long id;
 
     @NotNull
-    private Integer set;
+    @Builder.Default
+    private BigDecimal exerciseLoad = BigDecimal.ZERO;
 
     @NotNull
-    private BigDecimal load;
+    @Builder.Default
+    private LocalDate date = LocalDate.now();
 
     @ManyToOne
-    private ExerciseHistory exerciseHistory;
+    private Client client;
+
+    @ManyToOne
+    private Exercise exercise;
 }

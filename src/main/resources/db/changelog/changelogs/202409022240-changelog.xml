@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1725327536426-1" author="csequ">
+        <addColumn tableName="exercise_load_history">
+            <column name="exercise_load" type="DECIMAL"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1725327536426-2" author="csequ">
+        <addNotNullConstraint columnDataType="DECIMAL" columnName="exercise_load" tableName="exercise_load_history"/>
+    </changeSet>
+    <changeSet id="1725327536426-3" author="csequ">
+        <addColumn tableName="workout_exercise">
+            <column name="exercise_load" type="DECIMAL"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1725327536426-4" author="csequ">
+        <addNotNullConstraint columnDataType="DECIMAL" columnName="exercise_load" tableName="workout_exercise"/>
+    </changeSet>
+    <changeSet id="1725327536426-5" author="csequ">
+        <addColumn tableName="workout_history_exercise_set">
+            <column name="exercise_load" type="DECIMAL"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1725327536426-6" author="csequ">
+        <addNotNullConstraint columnDataType="DECIMAL" columnName="exercise_load"
+                              tableName="workout_history_exercise_set"/>
+    </changeSet>
+    <changeSet id="1725327536426-7" author="csequ">
+        <dropColumn columnName="load" tableName="exercise_load_history"/>
+    </changeSet>
+    <changeSet id="1725327536426-8" author="csequ">
+        <dropColumn columnName="load" tableName="workout_exercise"/>
+    </changeSet>
+    <changeSet id="1725327536426-9" author="csequ">
+        <dropColumn columnName="load" tableName="workout_history_exercise_set"/>
+    </changeSet>
+
+</databaseChangeLog>

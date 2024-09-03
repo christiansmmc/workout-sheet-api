@@ -5,7 +5,7 @@ import com.workoutsheet.workoutsheet.facade.dto.client.ClientIdDTO;
 import com.workoutsheet.workoutsheet.facade.dto.client.ClientToCreateDTO;
 import com.workoutsheet.workoutsheet.facade.mapper.ClientMapper;
 import com.workoutsheet.workoutsheet.service.ClientService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

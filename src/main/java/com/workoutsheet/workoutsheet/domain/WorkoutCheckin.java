@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
-@Table(name = "workout_exercise")
+@Table(name = "workout_checkin")
 @Entity
 @Getter
 @Setter
@@ -24,23 +24,16 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkoutExercise {
+public class WorkoutCheckin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer sets;
-
-    private Integer reps;
+    @NotNull
+    private LocalDate date;
 
     @NotNull
-    @Builder.Default
-    private BigDecimal exerciseLoad = BigDecimal.ZERO;
-
     @ManyToOne
     private Workout workout;
-
-    @ManyToOne
-    private Exercise exercise;
 }
