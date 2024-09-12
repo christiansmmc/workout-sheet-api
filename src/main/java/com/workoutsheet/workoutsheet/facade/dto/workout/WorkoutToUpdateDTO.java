@@ -1,6 +1,6 @@
 package com.workoutsheet.workoutsheet.facade.dto.workout;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkoutIdDTO {
+public class WorkoutToUpdateDTO {
 
-    @NotNull
-    private Long id;
+    @NotBlank
+    private String name;
 }
