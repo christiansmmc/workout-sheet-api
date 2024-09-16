@@ -46,15 +46,15 @@ public class WorkoutExerciseContext {
                 CLIENT_DONT_HAVE_ACCESS
         );
 
+        if (workoutExercise.getExerciseLoad().compareTo(load) != 0) {
+            exerciseLoadHistoryService.create(exercise, client, load, LocalDate.now());
+        }
+
         workoutExercise.setSets(sets);
         workoutExercise.setReps(reps);
         workoutExercise.setExerciseLoad(load);
 
         service.save(workoutExercise);
-
-        if (!workoutExercise.getExerciseLoad().equals(load)) {
-            exerciseLoadHistoryService.create(exercise, client, load, LocalDate.now());
-        }
     }
 
     public void delete(Long id) {
