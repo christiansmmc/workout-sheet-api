@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class ExerciseLoadHistory {
     private Long id;
 
     @NotNull
+    @Digits(integer = 10, fraction = 2)
     @Builder.Default
     private BigDecimal exerciseLoad = BigDecimal.ZERO;
 

@@ -50,7 +50,6 @@ public class WorkoutExerciseContext {
         workoutExercise.setReps(reps);
         workoutExercise.setExerciseLoad(load);
 
-        workoutExercise.setExerciseLoad(load);
         service.save(workoutExercise);
 
         if (!workoutExercise.getExerciseLoad().equals(load)) {
