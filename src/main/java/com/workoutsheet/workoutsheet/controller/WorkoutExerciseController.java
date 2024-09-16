@@ -46,10 +46,10 @@ public class WorkoutExerciseController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Void> create(
+    public ResponseEntity<Void> addExerciseToWorkout(
             @RequestBody @Valid WorkoutExerciseToCreateDTO dto
     ) throws URISyntaxException {
-        facade.create(dto);
+        facade.addExerciseToWorkout(dto);
         return ResponseEntity
                 .created(new URI("/api/workout-exercises/"))
                 .build();

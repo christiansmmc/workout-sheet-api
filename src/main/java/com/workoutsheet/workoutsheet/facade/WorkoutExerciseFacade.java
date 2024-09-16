@@ -26,8 +26,8 @@ public class WorkoutExerciseFacade {
     }
 
     @Transactional
-    public void create(WorkoutExerciseToCreateDTO dto) {
+    public void addExerciseToWorkout(WorkoutExerciseToCreateDTO dto) {
         WorkoutExercise workoutExercise = WorkoutExerciseMapper.WORKOUT_EXERCISE_MAPPER.toEntity(dto);
-        context.create(workoutExercise);
+        context.addExerciseToWorkout(workoutExercise);
     }
 }

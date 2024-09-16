@@ -11,6 +11,7 @@ import com.workoutsheet.workoutsheet.facade.vm.workout.find.ExerciseToFindAllWor
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.WorkoutExeciseToFindAllWorkoutExercisesVM;
 import com.workoutsheet.workoutsheet.service.ClientService;
+import com.workoutsheet.workoutsheet.service.ExerciseLoadHistoryService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutService;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,7 @@ public class WorkoutContext {
     private final ClientService clientService;
     private final ExerciseService exerciseService;
     private final WorkoutExerciseService workoutExerciseService;
+    private final ExerciseLoadHistoryService exerciseLoadHistoryService;
 
     public Workout createWorkout(CreateWorkoutVM vm) {
         Client client = clientService.getLoggedUser();
@@ -42,14 +45,19 @@ public class WorkoutContext {
                 .build();
 
         Workout workoutCreated = service.save(workout);
-        this.createWorkoutExercises(vm.getExercises(), workoutCreated);
+        this.createWorkoutExercises(
+                vm.getExercises(),
+                workoutCreated,
+                client
+        );
 
         return workoutCreated;
     }
 
     private void createWorkoutExercises(
             List<ExerciseToCreateWorkoutVM> exercises,
-            Workout workout
+            Workout workout,
+            Client client
     ) {
         exercises.forEach(it -> {
             Exercise exercise = exerciseService.findExerciseById(it.getExerciseId());
@@ -65,7 +73,14 @@ public class WorkoutContext {
 
             workoutExerciseService.save(workoutExercise);
 
-            // TODO CREATE HISTORY
+            if (workoutExercise.getExerciseLoad().compareTo(BigDecimal.ZERO) > 0) {
+                exerciseLoadHistoryService.create(
+                        exercise,
+                        client,
+                        workoutExercise.getExerciseLoad(),
+                        LocalDate.now()
+                );
+            }
         });
     }
 

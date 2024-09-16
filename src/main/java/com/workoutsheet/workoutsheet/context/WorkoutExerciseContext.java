@@ -7,6 +7,7 @@ import com.workoutsheet.workoutsheet.domain.Workout;
 import com.workoutsheet.workoutsheet.domain.WorkoutExercise;
 import com.workoutsheet.workoutsheet.exception.AppException;
 import com.workoutsheet.workoutsheet.service.ClientService;
+import com.workoutsheet.workoutsheet.service.ExerciseLoadHistoryService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutService;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +29,12 @@ public class WorkoutExerciseContext {
     private final ClientService clientService;
     private final ExerciseService exerciseService;
     private final WorkoutService workoutService;
+    private final ExerciseLoadHistoryService exerciseLoadHistoryService;
 
     public void updateLoad(Long id, BigDecimal load) {
         Client client = clientService.getLoggedUser();
-
         WorkoutExercise workoutExercise = service.findById(id);
+        Exercise exercise = exerciseService.findExerciseById(workoutExercise.getExercise().getId());
 
         AppException.throwIfNot(
                 workoutExercise.getWorkout().getClient().equals(client),
@@ -45,7 +48,7 @@ public class WorkoutExerciseContext {
         workoutExercise.setExerciseLoad(load);
         service.save(workoutExercise);
 
-        // TODO UPDATE LOAD HISTORY
+        exerciseLoadHistoryService.create(exercise, client, load, LocalDate.now());
     }
 
     public void delete(Long id) {
@@ -59,7 +62,7 @@ public class WorkoutExerciseContext {
                 });
     }
 
-    public void create(WorkoutExercise workoutExercise) {
+    public void addExerciseToWorkout(WorkoutExercise workoutExercise) {
         Client loggedClient = clientService.getLoggedUser();
         Workout workout = workoutService.findById(workoutExercise.getWorkout().getId());
         Exercise exercise = exerciseService.findExerciseById(workoutExercise.getExercise().getId());
@@ -80,7 +83,14 @@ public class WorkoutExerciseContext {
 
         service.save(workoutExerciseToCreate);
 
-        // TODO CREATE HISTORY
+        if (workoutExercise.getExerciseLoad().compareTo(BigDecimal.ZERO) > 0) {
+            exerciseLoadHistoryService.create(
+                    exercise,
+                    loggedClient,
+                    workoutExercise.getExerciseLoad(),
+                    LocalDate.now()
+            );
+        }
     }
 
     public void deleteAllFromWorkout(Long workoutId) {
