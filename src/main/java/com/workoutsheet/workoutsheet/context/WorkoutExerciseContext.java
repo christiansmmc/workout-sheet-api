@@ -31,7 +31,12 @@ public class WorkoutExerciseContext {
     private final WorkoutService workoutService;
     private final ExerciseLoadHistoryService exerciseLoadHistoryService;
 
-    public void updateLoad(Long id, BigDecimal load) {
+    public void update(
+            Long id,
+            BigDecimal load,
+            Integer sets,
+            Integer reps
+    ) {
         Client client = clientService.getLoggedUser();
         WorkoutExercise workoutExercise = service.findById(id);
         Exercise exercise = exerciseService.findExerciseById(workoutExercise.getExercise().getId());
@@ -41,14 +46,16 @@ public class WorkoutExerciseContext {
                 CLIENT_DONT_HAVE_ACCESS
         );
 
-        if (workoutExercise.getExerciseLoad().equals(load)) {
-            return;
-        }
+        workoutExercise.setSets(sets);
+        workoutExercise.setReps(reps);
+        workoutExercise.setExerciseLoad(load);
 
         workoutExercise.setExerciseLoad(load);
         service.save(workoutExercise);
 
-        exerciseLoadHistoryService.create(exercise, client, load, LocalDate.now());
+        if (!workoutExercise.getExerciseLoad().equals(load)) {
+            exerciseLoadHistoryService.create(exercise, client, load, LocalDate.now());
+        }
     }
 
     public void delete(Long id) {

@@ -16,8 +16,8 @@ public class WorkoutExerciseFacade {
     private final WorkoutExerciseContext context;
 
     @Transactional
-    public void updateLoad(Long id, WorkoutExerciseToUpdateLoadDTO dto) {
-        context.updateLoad(id, dto.getLoad());
+    public void update(Long id, WorkoutExerciseToUpdateLoadDTO dto) {
+        context.update(id, dto.getLoad(), dto.getSets(), dto.getReps());
     }
 
     @Transactional

@@ -15,5 +15,11 @@ import java.math.BigDecimal;
 public class WorkoutExerciseToUpdateLoadDTO {
 
     @NotNull
+    private Integer sets;
+
+    @NotNull
+    private Integer reps;
+
+    @NotNull
     private BigDecimal load;
 }

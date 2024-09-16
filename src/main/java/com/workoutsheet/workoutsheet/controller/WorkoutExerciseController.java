@@ -27,11 +27,11 @@ public class WorkoutExerciseController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Void> updateLoad(
+    public ResponseEntity<Void> update(
             @PathVariable Long id,
             @RequestBody @Valid WorkoutExerciseToUpdateLoadDTO dto
     ) {
-        facade.updateLoad(id, dto);
+        facade.update(id, dto);
         return ResponseEntity.ok().build();
     }
 
