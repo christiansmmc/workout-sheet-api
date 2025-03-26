@@ -4,7 +4,7 @@ import com.workoutsheet.workoutsheet.facade.vm.workout.HealthResponseVM;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class HealthController {
 
-    @PatchMapping("/")
+    @GetMapping
     public ResponseEntity<HealthResponseVM> healthChekc() {
         return ResponseEntity.ok(HealthResponseVM.builder().build());
     }
