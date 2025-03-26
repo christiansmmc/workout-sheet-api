@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     container_name: workout_sheet_app
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       db:
         condition: service_healthy
