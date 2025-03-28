@@ -39,6 +39,7 @@ public class WorkoutContext {
     public Workout createWorkout(CreateWorkoutVM vm) {
         Client client = clientService.getLoggedUser();
         Integer workoutListOrder = service.findLastListOrderCreated(client.getId())
+                .map(lastListOrder -> lastListOrder + 1)
                 .orElse(0);
 
         Workout workout = Workout

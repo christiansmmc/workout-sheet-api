@@ -79,6 +79,7 @@ public class WorkoutExerciseContext {
 
         Exercise exercise = exerciseService.findExerciseById(workoutExercise.getExercise().getId());
         int listOrder = service.findLastListOrderCreated(workout.getId())
+                .map(lastListOrder -> lastListOrder + 1)
                 .orElse(0);
 
         WorkoutExercise workoutExerciseToCreate = WorkoutExercise
