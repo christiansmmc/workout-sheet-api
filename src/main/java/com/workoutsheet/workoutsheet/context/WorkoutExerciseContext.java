@@ -71,18 +71,22 @@ public class WorkoutExerciseContext {
     public void addExerciseToWorkout(WorkoutExercise workoutExercise) {
         Client loggedClient = clientService.getLoggedUser();
         Workout workout = workoutService.findById(workoutExercise.getWorkout().getId());
-        Exercise exercise = exerciseService.findExerciseById(workoutExercise.getExercise().getId());
 
         AppException.throwIfNot(
                 workout.getClient().equals(loggedClient),
                 ErrorType.WORKOUT_NOT_FOUND
         );
 
+        Exercise exercise = exerciseService.findExerciseById(workoutExercise.getExercise().getId());
+        int listOrder = service.findLastListOrderCreated(workout.getId())
+                .orElse(0);
+
         WorkoutExercise workoutExerciseToCreate = WorkoutExercise
                 .builder()
                 .reps(workoutExercise.getReps())
                 .sets(workoutExercise.getSets())
                 .exerciseLoad(Optional.ofNullable(workoutExercise.getExerciseLoad()).orElse(BigDecimal.ZERO))
+                .listOrder(listOrder)
                 .workout(workout)
                 .exercise(exercise)
                 .build();

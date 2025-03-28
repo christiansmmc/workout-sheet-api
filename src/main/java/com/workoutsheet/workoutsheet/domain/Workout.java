@@ -33,6 +33,10 @@ public class Workout {
     private String name;
 
     @NotNull
+    @Builder.Default
+    private int listOrder = 0;
+
+    @NotNull
     @ManyToOne
     private Client client;
 }

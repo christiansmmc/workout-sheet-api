@@ -40,6 +40,10 @@ public class WorkoutExercise {
     @Builder.Default
     private BigDecimal exerciseLoad = BigDecimal.ZERO;
 
+    @NotNull
+    @Builder.Default
+    private int listOrder = 0;
+
     @ManyToOne
     private Workout workout;
 

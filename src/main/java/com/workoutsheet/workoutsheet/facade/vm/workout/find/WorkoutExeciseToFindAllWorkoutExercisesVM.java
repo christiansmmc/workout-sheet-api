@@ -21,5 +21,7 @@ public class WorkoutExeciseToFindAllWorkoutExercisesVM {
 
     private BigDecimal exerciseLoad;
 
+    private int listOrder;
+
     private ExerciseToFindAllWorkoutExercisesVM exercise;
 }

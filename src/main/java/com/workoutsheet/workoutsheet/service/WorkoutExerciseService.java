@@ -43,4 +43,9 @@ public class WorkoutExerciseService {
     public Optional<WorkoutExercise> findOptionalById(Long id) {
         return repository.findById(id);
     }
+
+
+    public Optional<Integer> findLastListOrderCreated(Long workoutId) {
+        return repository.findMaxListOrderByWorkoutId(workoutId);
+    }
 }

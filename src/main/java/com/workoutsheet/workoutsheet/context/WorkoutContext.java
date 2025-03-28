@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static com.workoutsheet.workoutsheet.constants.ErrorType.CLIENT_DONT_HAVE_ACCESS;
 
@@ -37,10 +38,13 @@ public class WorkoutContext {
 
     public Workout createWorkout(CreateWorkoutVM vm) {
         Client client = clientService.getLoggedUser();
+        Integer workoutListOrder = service.findLastListOrderCreated(client.getId())
+                .orElse(0);
 
         Workout workout = Workout
                 .builder()
                 .name(vm.getWorkoutName())
+                .listOrder(workoutListOrder)
                 .client(client)
                 .build();
 
@@ -59,29 +63,32 @@ public class WorkoutContext {
             Workout workout,
             Client client
     ) {
-        exercises.forEach(it -> {
-            Exercise exercise = exerciseService.findExerciseById(it.getExerciseId());
+        IntStream.range(0, exercises.size())
+                .forEach(i -> {
+                    ExerciseToCreateWorkoutVM it = exercises.get(i);
+                    Exercise exercise = exerciseService.findExerciseById(it.getExerciseId());
 
-            WorkoutExercise workoutExercise = WorkoutExercise
-                    .builder()
-                    .reps(it.getReps())
-                    .sets(it.getSets())
-                    .exerciseLoad(Optional.ofNullable(it.getLoad()).orElse(BigDecimal.ZERO))
-                    .exercise(exercise)
-                    .workout(workout)
-                    .build();
+                    WorkoutExercise workoutExercise = WorkoutExercise
+                            .builder()
+                            .reps(it.getReps())
+                            .sets(it.getSets())
+                            .listOrder(i)
+                            .exerciseLoad(Optional.ofNullable(it.getLoad()).orElse(BigDecimal.ZERO))
+                            .exercise(exercise)
+                            .workout(workout)
+                            .build();
 
-            workoutExerciseService.save(workoutExercise);
+                    workoutExerciseService.save(workoutExercise);
 
-            if (workoutExercise.getExerciseLoad().compareTo(BigDecimal.ZERO) > 0) {
-                exerciseLoadHistoryService.create(
-                        exercise,
-                        client,
-                        workoutExercise.getExerciseLoad(),
-                        LocalDate.now()
-                );
-            }
-        });
+                    if (workoutExercise.getExerciseLoad().compareTo(BigDecimal.ZERO) > 0) {
+                        exerciseLoadHistoryService.create(
+                                exercise,
+                                client,
+                                workoutExercise.getExerciseLoad(),
+                                LocalDate.now()
+                        );
+                    }
+                });
     }
 
     public List<Workout> findAllWorkoutByClient() {
