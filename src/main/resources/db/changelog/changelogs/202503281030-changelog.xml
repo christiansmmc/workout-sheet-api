@@ -7,8 +7,8 @@
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
     <changeSet id="1743168680826-6" author="csequ">
-        <delete tableName="workout"/>
         <delete tableName="workout_exercise"/>
+        <delete tableName="workout"/>
     </changeSet>
 
     <changeSet id="1743168680826-7" author="csequ">
