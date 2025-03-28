@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,14 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticateResponseDTO> authenticate(
             @RequestBody @Valid AuthenticateRequestDTO dto
     ) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
+            );
+        } catch (BadCredentialsException ex) {
+            throw new AppException(INVALID_CREDENTIALS, HttpStatus.UNAUTHORIZED);
+        }
+
 
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new AppException(INVALID_CREDENTIALS, HttpStatus.UNAUTHORIZED));

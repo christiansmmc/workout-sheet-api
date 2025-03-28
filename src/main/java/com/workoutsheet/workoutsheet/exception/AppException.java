@@ -7,18 +7,25 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class AppException extends RuntimeException {
 
-    private final ErrorType errorType;
+    private final String errorCode;
+    private final String errorMessage;
     private final HttpStatus httpStatus;
 
     public AppException(ErrorType errorType) {
-        super(errorType.getMessage());
-        this.errorType = errorType;
-        this.httpStatus = HttpStatus.BAD_REQUEST;
+        this(errorType, HttpStatus.BAD_REQUEST);
     }
 
     public AppException(ErrorType errorType, HttpStatus httpStatus) {
         super(errorType.getMessage());
-        this.errorType = errorType;
+        this.errorCode = errorType.getCode();
+        this.errorMessage = errorType.getMessage();
+        this.httpStatus = httpStatus;
+    }
+
+    public AppException(String errorCode, String errorMessage, HttpStatus httpStatus) {
+        super(errorMessage);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
         this.httpStatus = httpStatus;
     }
 
@@ -44,13 +51,5 @@ public class AppException extends RuntimeException {
         if (!condition) {
             throw new AppException(errorType, httpStatus);
         }
-    }
-
-    public String getErrorCode() {
-        return errorType.getCode();
-    }
-
-    public String getErrorMessage() {
-        return errorType.getMessage();
     }
 }
