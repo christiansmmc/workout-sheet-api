@@ -1,10 +1,13 @@
 package com.workoutsheet.workoutsheet.service;
 
+import com.workoutsheet.workoutsheet.constants.ErrorType;
 import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.User;
+import com.workoutsheet.workoutsheet.exception.AppException;
 import com.workoutsheet.workoutsheet.repository.ClientRepository;
 import com.workoutsheet.workoutsheet.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,9 +32,9 @@ public class ClientService {
 
     public Client getLoggedUser() {
         String loggedUserEmail = SecurityUtils.getCurrentUserLogin()
-                .orElseThrow();
+                .orElseThrow(() -> new AppException(ErrorType.LOGGED_USER_NOT_FOUND, HttpStatus.UNAUTHORIZED));
 
         return repository.findByUserEmail(loggedUserEmail)
-                .orElseThrow();
+                .orElseThrow(() -> new AppException(ErrorType.CLIENT_NOT_FOUND, HttpStatus.UNAUTHORIZED));
     }
 }
