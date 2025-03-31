@@ -4,6 +4,7 @@ import com.workoutsheet.workoutsheet.facade.WorkoutFacade;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutIdDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateDTO;
+import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateListOrderDTO;
 import com.workoutsheet.workoutsheet.facade.vm.workout.create.CreateWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
 import jakarta.validation.Valid;
@@ -75,5 +76,14 @@ public class WorkoutController {
     ) {
         facade.deleteWorkout(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/list-order")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Void> update(
+            @RequestBody @Valid List<WorkoutToUpdateListOrderDTO> dto
+            ) {
+        facade.updateWorkoutsListOrder(dto);
+        return ResponseEntity.ok().build();
     }
 }

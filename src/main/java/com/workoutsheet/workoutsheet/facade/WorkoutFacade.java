@@ -5,6 +5,7 @@ import com.workoutsheet.workoutsheet.domain.Workout;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutIdDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateDTO;
+import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateListOrderDTO;
 import com.workoutsheet.workoutsheet.facade.mapper.WorkoutMapper;
 import com.workoutsheet.workoutsheet.facade.vm.workout.create.CreateWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
@@ -49,5 +50,11 @@ public class WorkoutFacade {
     @Transactional
     public void deleteWorkout(Long id) {
         context.deleteWorkout(id);
+    }
+
+    @Transactional
+    public void updateWorkoutsListOrder(List<WorkoutToUpdateListOrderDTO> dtos) {
+        List<Workout> workouts = dtos.stream().map(WorkoutMapper.WORKOUT_MAPPER::toEntity).toList();
+        context.updateWorkoutsListOrder(workouts);
     }
 }

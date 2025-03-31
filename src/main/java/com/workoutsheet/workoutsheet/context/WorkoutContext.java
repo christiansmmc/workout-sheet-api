@@ -144,6 +144,14 @@ public class WorkoutContext {
         service.delete(workout.getId());
     }
 
+    public void updateWorkoutsListOrder(List<Workout> workouts) {
+        workouts.forEach(workout -> {
+            Workout workoutToUpdate = this.getLoggedClientWorkoutById(workout.getId());
+            workoutToUpdate.setListOrder(workout.getListOrder());
+            service.save(workoutToUpdate);
+        });
+    }
+
     private Workout getLoggedClientWorkoutById(Long workoutId) {
         Client client = clientService.getLoggedUser();
         Workout workout = service.findById(workoutId);
