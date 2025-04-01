@@ -34,7 +34,6 @@ public class WorkoutRecordExerciseSet {
     @NotNull
     private Integer set;
 
-    @NotNull
     private Integer reps;
 
     @NotNull
