@@ -32,13 +32,13 @@ public class WorkoutRecordController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Void> create(
+    public ResponseEntity<WorkoutRecordToFindWorkoutRecordVM> create(
             @RequestBody @Valid WorkoutRecordToCreateVM vm
     ) throws URISyntaxException {
-        facade.create(vm);
+        WorkoutRecordToFindWorkoutRecordVM response = facade.create(vm);
         return ResponseEntity
                 .created(new URI("/api/workout-record"))
-                .build();
+                .body(response);
     }
 
     @GetMapping("/simple")

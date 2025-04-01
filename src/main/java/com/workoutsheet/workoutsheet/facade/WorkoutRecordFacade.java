@@ -22,8 +22,8 @@ public class WorkoutRecordFacade {
     private final WorkoutRecordContext context;
 
     @Transactional
-    public void create(WorkoutRecordToCreateVM vm) {
-        context.create(vm);
+    public WorkoutRecordToFindWorkoutRecordVM create(WorkoutRecordToCreateVM vm) {
+        return context.create(vm);
     }
 
     @Transactional(readOnly = true)

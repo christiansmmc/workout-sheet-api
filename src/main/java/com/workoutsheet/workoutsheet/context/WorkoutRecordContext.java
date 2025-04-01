@@ -41,7 +41,7 @@ public class WorkoutRecordContext {
     private final ClientService clientService;
     private final ExerciseService exerciseService;
 
-    public void create(WorkoutRecordToCreateVM vm) {
+    public WorkoutRecordToFindWorkoutRecordVM create(WorkoutRecordToCreateVM vm) {
         Client client = clientService.getLoggedUser();
         Workout workout = workoutService.findById(vm.getWorkoutId());
 
@@ -60,6 +60,8 @@ public class WorkoutRecordContext {
 
         vm.getExercises().forEach(vmExercise ->
                 createWorkoutRecordExercise(vmExercise, workoutRecordCreated));
+
+        return mapToFindWorkoutRecordVM(workoutRecordCreated);
     }
 
     private void createWorkoutRecordExercise(
@@ -125,7 +127,10 @@ public class WorkoutRecordContext {
         }
 
         WorkoutRecord workoutRecord = workoutRecordOptional.get();
+        return Optional.of(mapToFindWorkoutRecordVM(workoutRecord));
+    }
 
+    private WorkoutRecordToFindWorkoutRecordVM mapToFindWorkoutRecordVM(WorkoutRecord workoutRecord) {
         List<WorkoutRecordExercise> exercises = workoutRecordExerciseService
                 .findAllByWorkoutRecord(workoutRecord.getId());
 
@@ -162,17 +167,15 @@ public class WorkoutRecordContext {
                             .build();
                 }).toList();
 
-        WorkoutRecordToFindWorkoutRecordVM vm = WorkoutRecordToFindWorkoutRecordVM
+        return WorkoutRecordToFindWorkoutRecordVM
                 .builder()
                 .id(workoutRecord.getId())
                 .date(workoutRecord.getDate())
                 .workout(WorkoutToFindWorkoutRecordVM.builder()
-                        .id(workout.getId())
-                        .name(workout.getName())
+                        .id(workoutRecord.getWorkout().getId())
+                        .name(workoutRecord.getWorkout().getName())
                         .build())
                 .workoutRecordExercises(exerciseVMs)
                 .build();
-
-        return Optional.of(vm);
     }
 }
