@@ -1,54 +1,77 @@
 name,body_part
-Supino reto com barra,PEITO
-Supino reto com halteres,PEITO
-Supino inclinado com barra,PEITO
-Supino inclinado com halteres,PEITO
-Crucifixo na máquina,PEITO
-Crucifixo com halteres,PEITO
-Cross-over,PEITO
-Peck deck,PEITO
-Pullover com halteres,PEITO
-Flexão de braço,PEITO
-Rosca direta com barra,BICEPS
-Rosca direta com halteres,BICEPS
-Rosca martelo,BICEPS
-Rosca martelo na polia,BICEPS
-Rosca inclinada com halteres,BICEPS
-Rosca concentrada,BICEPS
-Rosca Scott,BICEPS
 Rosca 21,BICEPS
-Pulldown,COSTAS
-Puxada por trás,COSTAS
-Pulley frente,COSTAS
-Remada curvada com barra,COSTAS
-Remada baixa,COSTAS
-Remada unilateral com halteres,COSTAS
-Remada cavalinho,COSTAS
-Remada na máquina,COSTAS
-Tríceps na corda,TRICEPS
-Tríceps francês com halteres,TRICEPS
-Tríceps testa com barra,TRICEPS
-Tríceps testa na máquina,TRICEPS
-Tríceps coice,TRICEPS
-Mergulho no banco,TRICEPS
-Desenvolvimento com halteres,OMBRO
-Desenvolvimento na máquina,OMBRO
-Elevação frontal com halteres,OMBRO
-Elevação frontal na polia,OMBRO
-Elevação lateral com halteres,OMBRO
-Elevação lateral na polia,OMBRO
-Elevação lateral na máquina,OMBRO
-Crucifixo inverso na máquina,OMBRO
-Crucifixo inverso na polia,OMBRO
-Encolhimento com halteres,OMBRO
-Encolhimento com barra,OMBRO
-Agachamento livre com barra,PERNA
+Rosca Scott,BICEPS
+Rosca Concentrada,BICEPS
+Rosca Direta na Polia,BICEPS
+Rosca Direta com Barra,BICEPS
+Rosca Direta com Halteres,BICEPS
+Rosca Inclinada com Halteres,BICEPS
+Rosca Martelo com Halteres,BICEPS
+Rosca Martelo na Polia,BICEPS
+Rosca Spider,BICEPS
+Rosca Alternada com Halteres,BICEPS
+Rosca Inversa com Barra,BICEPS
+PullDown,COSTAS
+Pulley Frente,COSTAS
+Remada Baixa na Polia,COSTAS
+Remada Baixa na Máquina,COSTAS
+Remada Cavalinho,COSTAS
+Remada Curvada com Barra,COSTAS
+Remada na Máquina,COSTAS
+Remada Unilateral com Halteres,COSTAS
+Puxada com Pegada Neutra,COSTAS
+Remada com Barra T,COSTAS
+Barra Fixa,COSTAS
+Desenvolvimento com Halteres,OMBRO
+Desenvolvimento na Máquina,OMBRO
+Elevação Frontal com Halteres,OMBRO
+Elevação Frontal na Polia,OMBRO
+Elevação Lateral com Halteres,OMBRO
+Elevação Lateral na Máquina,OMBRO
+Elevação Lateral na Polia,OMBRO
+Encolhimento com Barra,OMBRO
+Encolhimento com Halteres,OMBRO
+Crucifixo Inverso na Máquina,OMBRO
+Crucifixo Inverso na Polia,OMBRO
+Desenvolvimento Arnold,OMBRO
+Desenvolvimento com Barra,OMBRO
+Face Pull,OMBRO
+Cross-Over,PEITO
+Crucifixo na Máquina,PEITO
+Crucifixo com Halteres,PEITO
+Flexão de Braço,PEITO
+Peck Deck,PEITO
+Pullover com Halteres,PEITO
+Supino Inclinado com Barra,PEITO
+Supino Inclinado com Halteres,PEITO
+Supino Reto com Barra,PEITO
+Supino Reto com Halteres,PEITO
+Flexão com Pegada Fechada,PEITO
+Flexão com Inclinação,PEITO
+Supino Declinado com Halteres,PEITO
+Agachamento Livre com Barra,PERNA
 Agachamento no Smith,PERNA
-Leg press 45°,PERNA
-Cadeira extensora,PERNA
-Mesa flexora,PERNA
-Stiff com halteres,PERNA
-Avanço com halteres,PERNA
-Afundo com barra,PERNA
-Panturrilha no leg press,PERNA
-Panturrilha sentado,PERNA
+Agachamento na Máquina Guiada,PERNA
+Avanço com Halteres,PERNA
+Cadeira Extensora,PERNA
+Cadeira Flexora,PERNA
+Leg Press 45°,PERNA
+Mesa Flexora,PERNA
+Panturrilha no Leg Press,PERNA
+Panturrilha Sentado,PERNA
+Stiff com Halteres,PERNA
+Stiff com Barra,PERNA
+Afundo com Halteres,PERNA
+Agachamento Búlgaro,PERNA
+Passada com Halteres,PERNA
+Cadeira Abdutora,PERNA
+Cadeira Adutora,PERNA
+Tríceps Corda na Polia,TRICEPS
+Tríceps Francês com Halteres,TRICEPS
+Tríceps Francês na Polia,TRICEPS
+Tríceps Testa com Barra,TRICEPS
+Tríceps Testa na Máquina,TRICEPS
+Tríceps Testa na Polia,TRICEPS
+Tríceps Coice com Halteres,TRICEPS
+Mergulho nas Paralelas,TRICEPS
+Tríceps na Barra Fixa,TRICEPS
