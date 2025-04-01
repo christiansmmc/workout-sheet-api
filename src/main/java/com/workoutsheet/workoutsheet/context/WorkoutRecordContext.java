@@ -8,9 +8,15 @@ import com.workoutsheet.workoutsheet.domain.WorkoutRecord;
 import com.workoutsheet.workoutsheet.domain.WorkoutRecordExercise;
 import com.workoutsheet.workoutsheet.domain.WorkoutRecordExerciseSet;
 import com.workoutsheet.workoutsheet.exception.AppException;
+import com.workoutsheet.workoutsheet.facade.vm.FindWorkoutRecordFilterParamsVM;
 import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.create.WorkoutRecordExerciseSetToCreateWorkoutRecordVM;
 import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.create.WorkoutRecordExerciseToCreateWorkoutRecordVM;
 import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.create.WorkoutRecordToCreateVM;
+import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.find.ExerciseToFindWorkoutRecordVM;
+import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.find.WorkoutRecordExerciseSetToFindWorkoutRecordVM;
+import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.find.WorkoutRecordExerciseToFindWorkoutRecordVM;
+import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.find.WorkoutRecordToFindWorkoutRecordVM;
+import com.workoutsheet.workoutsheet.facade.vm.workoutrecord.find.WorkoutToFindWorkoutRecordVM;
 import com.workoutsheet.workoutsheet.service.ClientService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutService;
@@ -21,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -91,5 +99,80 @@ public class WorkoutRecordContext {
                 .build();
 
         workoutRecordExerciseSetService.save(workoutRecordExerciseSet);
+    }
+
+    public List<WorkoutRecord> findAllSimpleFiltered(
+            FindWorkoutRecordFilterParamsVM filterParams
+    ) {
+        Client client = clientService.getLoggedUser();
+
+        return service.findAllWithFilter(filterParams, client);
+    }
+
+    public Optional<WorkoutRecordToFindWorkoutRecordVM> findLastFromWorkout(Long workoutId) {
+        Client client = clientService.getLoggedUser();
+        Workout workout = workoutService.findById(workoutId);
+
+        AppException.throwIfNot(
+                workout.getClient().equals(client),
+                ErrorType.WORKOUT_NOT_FOUND
+        );
+
+        Optional<WorkoutRecord> workoutRecordOptional = service.findLastFromWorkout(workout, client);
+
+        if (workoutRecordOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        WorkoutRecord workoutRecord = workoutRecordOptional.get();
+
+        List<WorkoutRecordExercise> exercises = workoutRecordExerciseService
+                .findAllByWorkoutRecord(workoutRecord.getId());
+
+        List<WorkoutRecordExerciseToFindWorkoutRecordVM> exerciseVMs = exercises
+                .stream()
+                .map(exercise -> {
+                    List<WorkoutRecordExerciseSet> sets = workoutRecordExerciseSetService
+                            .findAllByWorkoutRecordExercise(exercise.getId());
+
+                    List<WorkoutRecordExerciseSetToFindWorkoutRecordVM> setVMs = sets
+                            .stream()
+                            .map(set ->
+                                    WorkoutRecordExerciseSetToFindWorkoutRecordVM
+                                            .builder()
+                                            .id(set.getId())
+                                            .set(set.getSet())
+                                            .reps(set.getReps())
+                                            .exerciseLoad(set.getExerciseLoad())
+                                            .note(set.getNote())
+                                            .build()
+                            ).toList();
+
+                    return WorkoutRecordExerciseToFindWorkoutRecordVM
+                            .builder()
+                            .id(exercise.getId())
+                            .note(exercise.getNote())
+                            .status(exercise.getStatus())
+                            .exercise(ExerciseToFindWorkoutRecordVM.builder()
+                                    .id(exercise.getExercise().getId())
+                                    .name(exercise.getExercise().getName())
+                                    .bodyPart(exercise.getExercise().getBodyPart())
+                                    .build())
+                            .workoutRecordExerciseSets(setVMs)
+                            .build();
+                }).toList();
+
+        WorkoutRecordToFindWorkoutRecordVM vm = WorkoutRecordToFindWorkoutRecordVM
+                .builder()
+                .id(workoutRecord.getId())
+                .date(workoutRecord.getDate())
+                .workout(WorkoutToFindWorkoutRecordVM.builder()
+                        .id(workout.getId())
+                        .name(workout.getName())
+                        .build())
+                .workoutRecordExercises(exerciseVMs)
+                .build();
+
+        return Optional.of(vm);
     }
 }

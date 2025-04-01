@@ -5,6 +5,8 @@ import com.workoutsheet.workoutsheet.repository.record.WorkoutRecordExerciseSetR
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class WorkoutRecordExerciseSetService {
@@ -13,5 +15,9 @@ public class WorkoutRecordExerciseSetService {
 
     public WorkoutRecordExerciseSet save(WorkoutRecordExerciseSet workoutRecordExerciseSet) {
         return repository.save(workoutRecordExerciseSet);
+    }
+
+    public List<WorkoutRecordExerciseSet> findAllByWorkoutRecordExercise(Long workoutRecordExerciseId) {
+        return repository.findAllByWorkoutRecordExerciseId(workoutRecordExerciseId);
     }
 }
