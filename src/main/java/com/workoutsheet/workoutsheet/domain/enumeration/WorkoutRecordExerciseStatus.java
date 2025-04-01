@@ -1,6 +1,6 @@
 package com.workoutsheet.workoutsheet.domain.enumeration;
 
-public enum WorkoutHistoryExerciseStatus {
+public enum WorkoutRecordExerciseStatus {
     COMPLETED,
     SKIPPED,
     PARTIAL,

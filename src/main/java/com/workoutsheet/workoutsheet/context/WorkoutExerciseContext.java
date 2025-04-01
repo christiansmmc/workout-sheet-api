@@ -7,7 +7,7 @@ import com.workoutsheet.workoutsheet.domain.Workout;
 import com.workoutsheet.workoutsheet.domain.WorkoutExercise;
 import com.workoutsheet.workoutsheet.exception.AppException;
 import com.workoutsheet.workoutsheet.service.ClientService;
-import com.workoutsheet.workoutsheet.service.ExerciseLoadHistoryService;
+import com.workoutsheet.workoutsheet.service.record.ExerciseLoadHistoryService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutService;

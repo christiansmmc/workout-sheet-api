@@ -1,9 +1,9 @@
-package com.workoutsheet.workoutsheet.service;
+package com.workoutsheet.workoutsheet.service.record;
 
 import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.Exercise;
 import com.workoutsheet.workoutsheet.domain.ExerciseLoadHistory;
-import com.workoutsheet.workoutsheet.repository.ExerciseLoadHistoryRepository;
+import com.workoutsheet.workoutsheet.repository.record.ExerciseLoadHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

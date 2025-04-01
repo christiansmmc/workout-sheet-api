@@ -1,6 +1,5 @@
 package com.workoutsheet.workoutsheet.domain;
 
-import com.workoutsheet.workoutsheet.domain.enumeration.WorkoutHistoryExerciseStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "workout_history_exercise")
+import java.time.LocalDate;
+
+@Table(name = "workout_record")
 @Entity
 @Getter
 @Setter
@@ -23,22 +24,16 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkoutHistoryExercise {
+public class WorkoutRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String note;
-
     @NotNull
-    private WorkoutHistoryExerciseStatus status;
-
-    @NotNull
-    @ManyToOne
-    private Exercise exercise;
+    private LocalDate date;
 
     @NotNull
     @ManyToOne
-    private WorkoutHistory workoutHistory;
+    private Workout workout;
 }

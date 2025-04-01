@@ -1,4 +1,4 @@
-package com.workoutsheet.workoutsheet.repository;
+package com.workoutsheet.workoutsheet.repository.record;
 
 import com.workoutsheet.workoutsheet.domain.ClientHistory;
 import org.springframework.data.jpa.repository.JpaRepository;

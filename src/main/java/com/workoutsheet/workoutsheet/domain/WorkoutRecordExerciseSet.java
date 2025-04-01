@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +15,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
-@Table(name = "workout_history")
+@Table(name = "workout_record_exercise_set")
 @Entity
 @Getter
 @Setter
@@ -24,16 +25,25 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkoutHistory {
+public class WorkoutRecordExerciseSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private LocalDate date;
+    private Integer set;
+
+    @NotNull
+    private Integer reps;
+
+    @NotNull
+    @Digits(integer = 10, fraction = 2)
+    private BigDecimal exerciseLoad;
+
+    private String note;
 
     @NotNull
     @ManyToOne
-    private Workout workout;
+    private WorkoutRecordExercise workoutRecordExercise;
 }

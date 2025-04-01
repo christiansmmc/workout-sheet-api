@@ -5,6 +5,7 @@ import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.User;
 import com.workoutsheet.workoutsheet.exception.AppException;
 import com.workoutsheet.workoutsheet.repository.ClientRepository;
+import com.workoutsheet.workoutsheet.service.record.ClientHistoryService;
 import com.workoutsheet.workoutsheet.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
