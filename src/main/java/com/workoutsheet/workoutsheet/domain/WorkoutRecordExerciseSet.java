@@ -1,5 +1,6 @@
 package com.workoutsheet.workoutsheet.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +33,7 @@ public class WorkoutRecordExerciseSet {
     private Long id;
 
     @NotNull
+    @Column(name = "set_number")
     private Integer set;
 
     private Integer reps;
