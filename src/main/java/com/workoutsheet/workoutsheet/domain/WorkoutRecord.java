@@ -35,5 +35,5 @@ public class WorkoutRecord {
 
     @NotNull
     @ManyToOne
-    private Workout workout;
+    private Workout workout;    
 }

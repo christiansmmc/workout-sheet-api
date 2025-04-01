@@ -2,6 +2,8 @@ package com.workoutsheet.workoutsheet.domain;
 
 import com.workoutsheet.workoutsheet.domain.enumeration.WorkoutRecordExerciseStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,6 +34,7 @@ public class WorkoutRecordExercise {
     private String note;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private WorkoutRecordExerciseStatus status;
 
     @NotNull

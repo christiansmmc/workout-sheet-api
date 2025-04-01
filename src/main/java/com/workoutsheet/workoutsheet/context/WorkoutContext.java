@@ -11,10 +11,10 @@ import com.workoutsheet.workoutsheet.facade.vm.workout.find.ExerciseToFindAllWor
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.WorkoutExeciseToFindAllWorkoutExercisesVM;
 import com.workoutsheet.workoutsheet.service.ClientService;
-import com.workoutsheet.workoutsheet.service.record.ExerciseLoadHistoryService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutService;
+import com.workoutsheet.workoutsheet.service.record.ExerciseLoadHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -140,8 +140,8 @@ public class WorkoutContext {
     public void deleteWorkout(Long id) {
         Workout workout = this.getLoggedClientWorkoutById(id);
 
-        workoutExerciseService.deleteAllFromWorkout(workout.getId());
-        service.delete(workout.getId());
+        workout.setDeletedAt(LocalDate.now());
+        service.save(workout);
     }
 
     public void updateWorkoutsListOrder(List<Workout> workouts) {

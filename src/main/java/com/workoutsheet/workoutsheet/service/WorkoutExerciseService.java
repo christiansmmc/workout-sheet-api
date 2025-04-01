@@ -30,11 +30,6 @@ public class WorkoutExerciseService {
         repository.deleteById(id);
     }
 
-    public void deleteAllFromWorkout(Long workoutId) {
-        List<WorkoutExercise> workoutExercises = repository.findAllByWorkoutId(workoutId);
-        repository.deleteAll(workoutExercises);
-    }
-
     public WorkoutExercise findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new AppException(WORKOUT_EXERCISE_NOT_FOUND, HttpStatus.NOT_FOUND));

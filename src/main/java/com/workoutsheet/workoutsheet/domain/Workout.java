@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Table(name = "workout")
 @Entity
 @Getter
@@ -31,6 +33,8 @@ public class Workout {
 
     @NotBlank
     private String name;
+
+    private LocalDate deletedAt;
 
     @NotNull
     @Builder.Default

@@ -12,7 +12,9 @@ import java.util.Optional;
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
 
-    List<Workout> findAllByClientId(Long clientId);
+    Optional<Workout> findByIdAndDeletedAtIsNull(Long id);
+
+    List<Workout> findAllByClientIdAndDeletedAtIsNull(Long clientId);
 
     @Query("SELECT MAX(w.listOrder) FROM Workout w WHERE w.client.id = :clientId")
     Optional<Integer> findMaxListOrderByClientId(@Param("clientId") Long clientId);

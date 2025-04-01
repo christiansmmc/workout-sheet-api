@@ -22,16 +22,12 @@ public class WorkoutService {
     }
 
     public Workout findById(Long id) {
-        return repository.findById(id)
+        return repository.findByIdAndDeletedAtIsNull(id)
                 .orElseThrow(() -> new AppException(ErrorType.WORKOUT_NOT_FOUND, HttpStatus.NOT_FOUND));
     }
 
     public List<Workout> findAllByClientId(Long clientId) {
-        return repository.findAllByClientId(clientId);
-    }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
+        return repository.findAllByClientIdAndDeletedAtIsNull(clientId);
     }
 
     public Optional<Integer> findLastListOrderCreated(Long clientId) {
