@@ -1,39 +1,56 @@
 name,body_part
-supino reto barra,PEITO
-supino reto halteres,PEITO
-supino inclinado barra,PEITO
-supino inclinado halteres,PEITO
-crucifixo maquina,PEITO
-crucifixo halteres,PEITO
-cross-over,PEITO
-rosca direta barra,BICEPS
-rosca direta halteres,BICEPS
-rosca martelo,BICEPS
-rosca inclinado,BICEPS
-pulldown,COSTAS
-remada alta,COSTAS
-pulley,COSTAS
-pulley maquina,COSTAS
-remada baixa,COSTAS
-remada baixa maquina,COSTAS
-triceps corda,TRICEPS
-triceps frances halteres,TRICEPS
-triceps testa maquina,TRICEPS
-triceps testa barra,TRICEPS
-desenvolvimento halteres,OMBRO
-desenvolvimento maquina,OMBRO
-elevacao frontal halteres,OMBRO
-elevacao frontal polia,OMBRO
-elevacao lateral polia,OMBRO
-elevacao lateral halteres,OMBRO
-elevacao lateral maquina,OMBRO
-crucifixo inverso maquina,OMBRO
-crucifixo inverso polia,OMBRO
-encolhimento halteres,OMBRO
-agachamento livre barra,PERNA
-leg press 45⁰,PERNA
-cadeira extensora,PERNA
-cadeira flexora,PERNA
-panturrilha leg press,PERNA
-panturrilha gemeos sentado,PERNA
-mesa flexora,PERNA
+Supino reto com barra,PEITO
+Supino reto com halteres,PEITO
+Supino inclinado com barra,PEITO
+Supino inclinado com halteres,PEITO
+Crucifixo na máquina,PEITO
+Crucifixo com halteres,PEITO
+Cross-over,PEITO
+Peck deck,PEITO
+Pullover,PEITO
+Flexões de braço,PEITO
+Rosca direta com barra,BICEPS
+Rosca direta com halteres,BICEPS
+Rosca martelo,BICEPS
+Rosca inclinada,BICEPS
+Rosca concentrada,BICEPS
+Rosca Scott,BICEPS
+Rosca 21,BICEPS
+Pulldown,COSTAS
+Remada alta,COSTAS
+Pulley,COSTAS
+Pulley na máquina,COSTAS
+Remada baixa,COSTAS
+Remada baixa na máquina,COSTAS
+Remada unilateral,COSTAS
+Remada cavalinho,COSTAS
+Puxada na frente,COSTAS
+Puxada por trás,COSTAS
+Tríceps na corda,TRICEPS
+Tríceps francês com halteres,TRICEPS
+Tríceps testa na máquina,TRICEPS
+Tríceps testa com barra,TRICEPS
+Tríceps coice,TRICEPS
+Mergulho no banco,TRICEPS
+Desenvolvimento com halteres,OMBRO
+Desenvolvimento na máquina,OMBRO
+Elevação frontal com halteres,OMBRO
+Elevação frontal na polia,OMBRO
+Elevação lateral na polia,OMBRO
+Elevação lateral com halteres,OMBRO
+Elevação lateral na máquina,OMBRO
+Crucifixo inverso na máquina,OMBRO
+Crucifixo inverso na polia,OMBRO
+Encolhimento com halteres,OMBRO
+Encolhimento com barra,OMBRO
+Agachamento livre com barra,PERNA
+Agachamento no smith,PERNA
+Leg press 45°,PERNA
+Cadeira extensora,PERNA
+Cadeira flexora,PERNA
+Panturrilha no leg press,PERNA
+Panturrilha gêmeos sentado,PERNA
+Mesa flexora,PERNA
+Stiff com halteres,PERNA
+Avanço com halteres,PERNA
+Afundo com barra,PERNA
