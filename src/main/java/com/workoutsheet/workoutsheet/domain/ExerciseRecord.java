@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "exercise_history")
+@Table(name = "exercise_record")
 @Entity
 @Getter
 @Setter
@@ -25,7 +25,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseHistory {
+public class ExerciseRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

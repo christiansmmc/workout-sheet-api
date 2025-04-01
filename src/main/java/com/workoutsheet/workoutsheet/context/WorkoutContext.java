@@ -14,7 +14,7 @@ import com.workoutsheet.workoutsheet.service.ClientService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutExerciseService;
 import com.workoutsheet.workoutsheet.service.WorkoutService;
-import com.workoutsheet.workoutsheet.service.record.ExerciseLoadHistoryService;
+import com.workoutsheet.workoutsheet.service.record.ExerciseLoadRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class WorkoutContext {
     private final ClientService clientService;
     private final ExerciseService exerciseService;
     private final WorkoutExerciseService workoutExerciseService;
-    private final ExerciseLoadHistoryService exerciseLoadHistoryService;
+    private final ExerciseLoadRecordService exerciseLoadRecordService;
 
     public Workout createWorkout(CreateWorkoutVM vm) {
         Client client = clientService.getLoggedUser();
@@ -82,7 +82,7 @@ public class WorkoutContext {
                     workoutExerciseService.save(workoutExercise);
 
                     if (workoutExercise.getExerciseLoad().compareTo(BigDecimal.ZERO) > 0) {
-                        exerciseLoadHistoryService.create(
+                        exerciseLoadRecordService.create(
                                 exercise,
                                 client,
                                 workoutExercise.getExerciseLoad(),

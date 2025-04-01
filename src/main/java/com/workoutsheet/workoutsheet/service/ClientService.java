@@ -5,7 +5,7 @@ import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.User;
 import com.workoutsheet.workoutsheet.exception.AppException;
 import com.workoutsheet.workoutsheet.repository.ClientRepository;
-import com.workoutsheet.workoutsheet.service.record.ClientHistoryService;
+import com.workoutsheet.workoutsheet.service.record.ClientRecordService;
 import com.workoutsheet.workoutsheet.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class ClientService {
 
     private final ClientRepository repository;
 
-    private final ClientHistoryService clientHistoryService;
+    private final ClientRecordService clientRecordService;
     private final UserService userService;
 
     public Client createClient(Client client) {
@@ -26,7 +26,7 @@ public class ClientService {
         client.setUser(user);
         Client clientCreated = repository.save(client);
 
-        clientHistoryService.createClientHistory(client, client.getWeight(), client.getHeight());
+        clientRecordService.createClientRecord(client, client.getWeight(), client.getHeight());
 
         return clientCreated;
     }

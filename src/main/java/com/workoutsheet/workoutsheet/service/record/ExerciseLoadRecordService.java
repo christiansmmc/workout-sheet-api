@@ -2,8 +2,8 @@ package com.workoutsheet.workoutsheet.service.record;
 
 import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.Exercise;
-import com.workoutsheet.workoutsheet.domain.ExerciseLoadHistory;
-import com.workoutsheet.workoutsheet.repository.record.ExerciseLoadHistoryRepository;
+import com.workoutsheet.workoutsheet.domain.ExerciseLoadRecord;
+import com.workoutsheet.workoutsheet.repository.record.ExerciseLoadRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-public class ExerciseLoadHistoryService {
+public class ExerciseLoadRecordService {
 
-    private final ExerciseLoadHistoryRepository repository;
+    private final ExerciseLoadRecordRepository repository;
 
     public void create(
             Exercise exercise,
@@ -22,7 +22,7 @@ public class ExerciseLoadHistoryService {
             BigDecimal load,
             LocalDate date
     ) {
-        ExerciseLoadHistory exerciseLoadHistory = ExerciseLoadHistory
+        ExerciseLoadRecord exerciseLoadRecord = ExerciseLoadRecord
                 .builder()
                 .exerciseLoad(load)
                 .date(date)
@@ -30,6 +30,6 @@ public class ExerciseLoadHistoryService {
                 .exercise(exercise)
                 .build();
 
-        repository.save(exerciseLoadHistory);
+        repository.save(exerciseLoadRecord);
     }
 }

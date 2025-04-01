@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1743519943138-14" author="csequ">
+        <dropForeignKeyConstraint baseTableName="client_history" constraintName="FK_CLIENT_HISTORY_ON_CLIENT"/>
+    </changeSet>
+    <changeSet id="1743519943138-15" author="csequ">
+        <dropForeignKeyConstraint baseTableName="exercise_history" constraintName="FK_EXERCISE_HISTORY_ON_EXERCISE"/>
+    </changeSet>
+    <changeSet id="1743519943138-16" author="csequ">
+        <dropForeignKeyConstraint baseTableName="exercise_history" constraintName="FK_EXERCISE_HISTORY_ON_WORKOUT"/>
+    </changeSet>
+    <changeSet id="1743519943138-17" author="csequ">
+        <dropForeignKeyConstraint baseTableName="exercise_load_history"
+                                  constraintName="FK_EXERCISE_LOAD_HISTORY_ON_CLIENT"/>
+    </changeSet>
+    <changeSet id="1743519943138-18" author="csequ">
+        <dropForeignKeyConstraint baseTableName="exercise_load_history"
+                                  constraintName="FK_EXERCISE_LOAD_HISTORY_ON_EXERCISE"/>
+    </changeSet>
+    <changeSet id="1743519943138-6" author="csequ">
+        <createTable tableName="client_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_client_record"/>
+            </column>
+            <column name="weight" type="DECIMAL"/>
+            <column name="height" type="DECIMAL"/>
+            <column name="date" type="DATE"/>
+            <column name="client_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1743519943138-7" author="csequ">
+        <createTable tableName="exercise_load_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_load_record"/>
+            </column>
+            <column name="exercise_load" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="BIGINT"/>
+            <column name="exercise_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1743519943138-8" author="csequ">
+        <createTable tableName="exercise_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_record"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="workout_id" type="BIGINT"/>
+            <column name="exercise_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1743519943138-9" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="client_record"
+                                 constraintName="FK_CLIENT_RECORD_ON_CLIENT" referencedColumnNames="id"
+                                 referencedTableName="client"/>
+    </changeSet>
+    <changeSet id="1743519943138-10" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="exercise_load_record"
+                                 constraintName="FK_EXERCISE_LOAD_RECORD_ON_CLIENT" referencedColumnNames="id"
+                                 referencedTableName="client"/>
+    </changeSet>
+    <changeSet id="1743519943138-11" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="exercise_id" baseTableName="exercise_load_record"
+                                 constraintName="FK_EXERCISE_LOAD_RECORD_ON_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="exercise"/>
+    </changeSet>
+    <changeSet id="1743519943138-12" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="exercise_id" baseTableName="exercise_record"
+                                 constraintName="FK_EXERCISE_RECORD_ON_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="exercise"/>
+    </changeSet>
+    <changeSet id="1743519943138-13" author="csequ">
+        <addForeignKeyConstraint baseColumnNames="workout_id" baseTableName="exercise_record"
+                                 constraintName="FK_EXERCISE_RECORD_ON_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="workout"/>
+    </changeSet>
+    <changeSet id="1743519943138-19" author="csequ">
+        <dropTable cascadeConstraints="true" tableName="client_history"/>
+    </changeSet>
+    <changeSet id="1743519943138-20" author="csequ">
+        <dropTable cascadeConstraints="true" tableName="exercise_history"/>
+    </changeSet>
+    <changeSet id="1743519943138-21" author="csequ">
+        <dropTable cascadeConstraints="true" tableName="exercise_load_history"/>
+    </changeSet>
+    <changeSet id="1743519943138-1" author="csequ">
+        <modifyDataType columnName="exercise_load" newDataType="DECIMAL" tableName="workout_exercise"/>
+    </changeSet>
+    <changeSet id="1743519943138-2" author="csequ">
+        <addNotNullConstraint columnDataType="DECIMAL" columnName="exercise_load" tableName="workout_exercise"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="1743519943138-3" author="csequ">
+        <addNotNullConstraint columnDataType="INT" columnName="set_number" tableName="workout_record_exercise_set"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="1743519943138-4" author="csequ">
+        <dropColumn columnName="status" tableName="workout_record_exercise"/>
+    </changeSet>
+    <changeSet id="1743519943138-5" author="csequ">
+        <addColumn tableName="workout_record_exercise">
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

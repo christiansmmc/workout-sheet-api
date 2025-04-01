@@ -6,8 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +16,7 @@ import lombok.ToString;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Table(name = "exercise_load_history")
+@Table(name = "client_record")
 @Entity
 @Getter
 @Setter
@@ -26,24 +24,18 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseLoadHistory {
+public class ClientRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Digits(integer = 10, fraction = 2)
-    @Builder.Default
-    private BigDecimal exerciseLoad = BigDecimal.ZERO;
+    private BigDecimal weight;
 
-    @NotNull
-    @Builder.Default
-    private LocalDate date = LocalDate.now();
+    private BigDecimal height;
+
+    private LocalDate date;
 
     @ManyToOne
     private Client client;
-
-    @ManyToOne
-    private Exercise exercise;
 }
