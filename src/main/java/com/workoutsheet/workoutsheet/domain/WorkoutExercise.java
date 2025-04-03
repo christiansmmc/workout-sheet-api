@@ -36,7 +36,7 @@ public class WorkoutExercise {
     private Integer reps;
 
     @NotNull
-    @Digits(integer = 10, fraction = 2)
+    @Digits(integer = 3, fraction = 2)
     @Builder.Default
     private BigDecimal exerciseLoad = BigDecimal.ZERO;
 

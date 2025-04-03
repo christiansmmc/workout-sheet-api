@@ -39,7 +39,7 @@ public class WorkoutRecordExerciseSet {
     private Integer reps;
 
     @NotNull
-    @Digits(integer = 10, fraction = 2)
+    @Digits(integer = 3, fraction = 2)
     private BigDecimal exerciseLoad;
 
     private String note;

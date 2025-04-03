@@ -5,20 +5,21 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="db/changelog/changelogs/202408292200-changelog.xml"/>
-    <include file="db/changelog/changelogs/202408301030-changelog.xml"/>
-    <include file="db/changelog/changelogs/202408301037-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202408292200-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202408301030-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202408301037-changelog.xml"/>
     <include file="/db/changelog/changelogs/202408301845-changelog.xml"/>
     <include file="/db/changelog/changelogs/202408302225-changelog.xml"/>
     <include file="/db/changelog/changelogs/202409010030-changelog.xml"/>
-    <include file="db/changelog/changelogs/202409022220-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202409022220-changelog.xml"/>
     <include file="/db/changelog/changelogs/202409022240-changelog.xml"/>
     <include file="/db/changelog/changelogs/202409162030-changelog.xml"/>
     <include file="/db/changelog/changelogs/202503281030-changelog.xml"/>
-    <include file="/db/changelog/changelogs/202531032210-changelog.xml"/>
-    <include file="/db/changelog/changelogs/202531032340-changelog.xml"/>
-    <include file="/db/changelog/changelogs/202531032345-changelog.xml"/>
-    <include file="/db/changelog/changelogs/202501040035-changelog.xml"/>
-    <include file="db/changelog/changelogs/202501041200-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202503312210-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202503312340-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202503312345-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202504010035-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202504011200-changelog.xml"/>
+    <include file="/db/changelog/changelogs/202504031800-changelog.xml"/>
 
 </databaseChangeLog>
