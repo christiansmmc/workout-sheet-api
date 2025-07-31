@@ -3,6 +3,7 @@ package com.workoutsheet.workoutsheet.facade.mapper;
 import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.facade.dto.client.ClientIdDTO;
 import com.workoutsheet.workoutsheet.facade.dto.client.ClientToCreateDTO;
+import com.workoutsheet.workoutsheet.facade.dto.client.ClientToGetDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -17,4 +18,6 @@ public interface ClientMapper {
     @Mapping(target = "firstName", expression = "java(dto.getFirstName().toLowerCase())")
     @Mapping(target = "lastName", expression = "java(dto.getFirstName().toLowerCase())")
     Client toClient(ClientToCreateDTO dto);
+
+    ClientToGetDTO toGetDTO(Client client);
 }
