@@ -7,6 +7,7 @@ import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateListOrderDTO;
 import com.workoutsheet.workoutsheet.facade.vm.workout.create.CreateWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
+import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutVM;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +46,8 @@ public class WorkoutController {
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<WorkoutDTO>> findAllWorkoutByClient() {
-        List<WorkoutDTO> response = facade.findAllWorkoutByClient();
+    public ResponseEntity<List<FindAllWorkoutVM>> findAllWorkoutByClient() {
+        List<FindAllWorkoutVM> response = facade.findAllWorkoutByClient();
         return ResponseEntity.ok().body(response);
     }
 

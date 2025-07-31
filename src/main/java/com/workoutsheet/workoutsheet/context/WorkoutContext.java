@@ -4,11 +4,13 @@ import com.workoutsheet.workoutsheet.domain.Client;
 import com.workoutsheet.workoutsheet.domain.Exercise;
 import com.workoutsheet.workoutsheet.domain.Workout;
 import com.workoutsheet.workoutsheet.domain.WorkoutExercise;
+import com.workoutsheet.workoutsheet.domain.enumeration.BodyPart;
 import com.workoutsheet.workoutsheet.exception.AppException;
 import com.workoutsheet.workoutsheet.facade.vm.workout.create.CreateWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.create.ExerciseToCreateWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.ExerciseToFindAllWorkoutExercisesVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
+import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.WorkoutExeciseToFindAllWorkoutExercisesVM;
 import com.workoutsheet.workoutsheet.service.ClientService;
 import com.workoutsheet.workoutsheet.service.ExerciseService;
@@ -22,6 +24,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.workoutsheet.workoutsheet.constants.ErrorType.CLIENT_DONT_HAVE_ACCESS;
@@ -92,9 +96,26 @@ public class WorkoutContext {
                 });
     }
 
-    public List<Workout> findAllWorkoutByClient() {
+    public List<FindAllWorkoutVM> findAllWorkoutByClient() {
         Client client = clientService.getLoggedUser();
-        return service.findAllByClientId(client.getId());
+        List<Workout> workouts = service.findAllByClientId(client.getId());
+
+        return workouts.stream()
+                .map(workout -> {
+                    List<WorkoutExercise> workoutExercises = workoutExerciseService.findAllByWorkoutId(workout.getId());
+                    Set<BodyPart> bodyParts = workoutExercises.stream()
+                            .map(WorkoutExercise::getExercise)
+                            .map(Exercise::getBodyPart)
+                            .collect(Collectors.toSet());
+
+                    return FindAllWorkoutVM.builder()
+                            .id(workout.getId())
+                            .name(workout.getName())
+                            .listOrder(workout.getListOrder())
+                            .bodyParts(bodyParts)
+                            .build();
+                })
+                .toList();
     }
 
     public FindAllWorkoutExercisesVM findAllWorkoutExercises(Long id) {

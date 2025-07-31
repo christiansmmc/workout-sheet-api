@@ -2,13 +2,13 @@ package com.workoutsheet.workoutsheet.facade;
 
 import com.workoutsheet.workoutsheet.context.WorkoutContext;
 import com.workoutsheet.workoutsheet.domain.Workout;
-import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutIdDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateDTO;
 import com.workoutsheet.workoutsheet.facade.dto.workout.WorkoutToUpdateListOrderDTO;
 import com.workoutsheet.workoutsheet.facade.mapper.WorkoutMapper;
 import com.workoutsheet.workoutsheet.facade.vm.workout.create.CreateWorkoutVM;
 import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutExercisesVM;
+import com.workoutsheet.workoutsheet.facade.vm.workout.find.FindAllWorkoutVM;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +29,8 @@ public class WorkoutFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<WorkoutDTO> findAllWorkoutByClient() {
-        List<Workout> workouts = context.findAllWorkoutByClient();
-        return workouts
-                .stream()
-                .map(WorkoutMapper.WORKOUT_MAPPER::toDTO)
-                .toList();
+    public List<FindAllWorkoutVM> findAllWorkoutByClient() {
+        return context.findAllWorkoutByClient();
     }
 
     @Transactional(readOnly = true)
